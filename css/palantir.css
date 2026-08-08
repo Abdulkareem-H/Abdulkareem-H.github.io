@@ -1,0 +1,136 @@
+/* ============================================================
+   PALANTIR VARIANT THEME — loaded AFTER style.css on
+   palantir.html only. Two jobs:
+   1. Retint every design token to Palantir's language:
+      pure black · white headlines · gray body · Blueprint
+      blue #2d72d2 (Palantir's own design-system accent).
+   2. Style the extra animation components this variant adds
+      (radar widget, scan sweep, border draws, pings).
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. TOKEN OVERRIDES
+   On <html class="theme-palantir"> so JS reading tokens off the
+   root element (charts, particles) picks these up automatically.
+   ------------------------------------------------------------ */
+html.theme-palantir {
+  --bg:        #000000;
+  --surface:   #0b0c0e;
+  --hairline:  #232528;
+  --text:      #ffffff;
+  --text-dim:  #8b8f96;
+  --accent:    #2d72d2;   /* Palantir "Blueprint" blue */
+  --accent-soft: rgba(45, 114, 210, 0.14);
+  --accent-glow: rgba(45, 114, 210, 0.55);
+}
+
+/* A few rules in style.css baked in emerald rgba() values —
+   re-declare those for this theme. */
+.theme-palantir .btn-primary {
+  background: var(--text);      /* Palantir CTAs: white pill, black text */
+  border-color: var(--text);
+  color: var(--bg);
+}
+.theme-palantir .btn-primary:hover {
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.18);
+}
+.theme-palantir .chip.is-active {
+  color: var(--accent);
+  border-color: rgba(45, 114, 210, 0.55);
+  background: var(--accent-soft);
+}
+.theme-palantir .dash-badge {
+  color: var(--accent);
+  border-color: rgba(45, 114, 210, 0.4);
+}
+.theme-palantir .kpi-card:hover { border-color: rgba(45, 114, 210, 0.35); }
+.theme-palantir .cap-card:hover { border-color: rgba(45, 114, 210, 0.35); }
+.theme-palantir .cursor-ring { border-color: rgba(45, 114, 210, 0.45); }
+.theme-palantir .cursor-ring.is-hovering { border-color: rgba(45, 114, 210, 0.95); }
+.theme-palantir .tl-marker { box-shadow: 0 0 16px rgba(45, 114, 210, 0.45); }
+.theme-palantir .hud-corner { border-color: rgba(255, 255, 255, 0.4); } /* mono HUD */
+
+/* Survey grid: slightly more present on pure black */
+.theme-palantir .blueprint-grid {
+  border-inline-color: rgba(255, 255, 255, 0.07);
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.045)) no-repeat 25% 0 / 1px 100%,
+    linear-gradient(rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.045)) no-repeat 50% 0 / 1px 100%,
+    linear-gradient(rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.045)) no-repeat 75% 0 / 1px 100%;
+}
+
+/* ------------------------------------------------------------
+   2. VARIANT-ONLY COMPONENTS
+   ------------------------------------------------------------ */
+
+/* — RADAR WIDGET — tiny spinning sweep in the hero HUD row — */
+.radar {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  vertical-align: -4px;
+}
+.radar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 0deg, rgba(45, 114, 210, 0.7), transparent 35%);
+  animation: radar-spin 3s linear infinite;
+}
+@keyframes radar-spin { to { transform: rotate(360deg); } }
+
+/* — SCAN SWEEP — a light beam that passes over the dashboard
+     once when it enters view (driven by js/palantir-fx.js) — */
+.dash-stage { position: relative; }
+.scan-sweep {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 24px rgba(45, 114, 210, 0.55);
+  opacity: 0;                 /* revealed + moved by GSAP */
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* — BORDER DRAW — four hairlines that trace around capability
+     cards when they enter view (spans injected by JS) — */
+.cap-card .draw {
+  position: absolute;
+  background: var(--accent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.cap-card .draw-t { top: 0;    left: 0;  width: 100%; height: 1px; transform: scaleX(0); transform-origin: left; }
+.cap-card .draw-r { top: 0;    right: 0; width: 1px;  height: 100%; transform: scaleY(0); transform-origin: top; }
+.cap-card .draw-b { bottom: 0; right: 0; width: 100%; height: 1px; transform: scaleX(0); transform-origin: right; }
+.cap-card .draw-l { bottom: 0; left: 0;  width: 1px;  height: 100%; transform: scaleY(0); transform-origin: bottom; }
+
+/* — TIMELINE PING — markers pulse once as the spine reaches them — */
+.tl-marker.is-hit { animation: marker-ping 0.9s ease-out 1; }
+@keyframes marker-ping {
+  0%   { box-shadow: 0 0 0 0 rgba(45, 114, 210, 0.55); }
+  100% { box-shadow: 0 0 0 20px rgba(45, 114, 210, 0); }
+}
+
+/* — REVERSED MARQUEE (second row runs the other way) — */
+.marquee-rev .marquee-track {
+  animation-direction: reverse;
+  animation-duration: 34s;    /* slightly different speed = more alive */
+}
+.marquee + .marquee-rev { border-top: none; } /* stacked rows share one hairline */
+
+/* Footer variant-switcher link */
+.footer-sys a { transition: color 0.25s ease; }
+.footer-sys a:hover { color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .radar::after { animation: none; }
+  .tl-marker.is-hit { animation: none; }
+  .scan-sweep { display: none; }
+  .cap-card .draw { display: none; }
+}

@@ -1,0 +1,2014 @@
+/* ============================================================
+   DESIGN SYSTEM — every color/size/font decision lives here.
+   Change a token once, it updates everywhere. Never hardcode.
+   ============================================================ */
+:root {
+  /* Colors (LOCKED palette) */
+  --bg:        #08090c;   /* page background */
+  --surface:   #101218;   /* raised cards / panels */
+  --hairline:  #1e2129;   /* borders & dividers */
+  --text:      #f2f3f5;   /* primary text */
+  --text-dim:  #8a8f9c;   /* secondary text */
+  --accent:    #00d9a3;   /* emerald — used SPARINGLY */
+  --accent-soft: rgba(0, 217, 163, 0.12); /* accent at low opacity for glows/fills */
+  --accent-glow: rgba(0, 217, 163, 0.5);  /* stronger alpha for beams/pings */
+
+  /* Typography */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* Layout rhythm */
+  --container: 1160px;
+  --section-pad: clamp(96px, 12vw, 168px);
+  --radius: 14px;
+  --radius-lg: 18px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, canvas { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+ul { list-style: none; }
+::selection { background: var(--accent); color: var(--bg); }
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.container {
+  width: min(var(--container), 100% - 48px);
+  margin-inline: auto;
+}
+
+.section { padding-block: var(--section-pad); }
+
+.accent { color: var(--accent); }
+
+/* Mono eyebrow label — the "// SECTION" markers */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 4.5vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.section-sub {
+  color: var(--text-dim);
+  max-width: 520px;
+  margin-top: 18px;
+}
+
+.section-head {
+  margin-bottom: clamp(48px, 6vw, 72px);
+  position: relative; /* anchor for the .ghost background word */
+}
+
+/* Reveal system: hidden ONLY when JS is running (html.js),
+   so a CDN failure never leaves the page blank. */
+.js .reveal { opacity: 0; }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  transition: transform 0.25s ease, border-color 0.25s ease,
+              background 0.25s ease, box-shadow 0.25s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+  font-weight: 500;
+}
+.btn-primary:hover { box-shadow: 0 8px 32px rgba(0, 217, 163, 0.25); }
+
+.btn-ghost:hover { border-color: var(--text-dim); }
+
+.btn-lg { padding: 18px 40px; font-size: 1rem; }
+
+/* ============================================================
+   HEADER / NAV
+   ============================================================ */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  padding-block: 18px;
+  transition: background 0.35s ease, border-color 0.35s ease, padding 0.35s ease;
+  border-bottom: 1px solid transparent;
+}
+/* JS adds .is-scrolled after you scroll a bit */
+.site-header.is-scrolled {
+  padding-block: 12px;
+  background: rgba(8, 9, 12, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: var(--hairline);
+}
+
+.nav { display: flex; align-items: center; justify-content: space-between; }
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+.nav-links a { color: var(--text-dim); transition: color 0.25s ease; }
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta {
+  color: var(--text) !important;
+  border: 1px solid var(--hairline);
+  padding: 8px 18px;
+  border-radius: 999px;
+  transition: border-color 0.25s ease !important;
+}
+.nav-cta:hover { border-color: var(--accent); }
+
+/* ============================================================
+   01 · HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Fade the particle field into the page background at the bottom */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 220px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 2; }
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.hero-tagline {
+  color: var(--text-dim);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  max-width: 520px;
+  margin-top: 28px;
+}
+.hero-tagline em { color: var(--text); font-style: normal; }
+
+.hero-cta { display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
+
+.hero-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-top: 56px;
+}
+/* second meta line (nationality) tucks under the first */
+.hero-meta-2 { margin-top: 10px; }
+
+/* Scroll cue, bottom center */
+.hero-scroll-cue {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.cue-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--text-dim);
+}
+.cue-line {
+  width: 1px;
+  height: 44px;
+  background: var(--hairline);
+  position: relative;
+  overflow: hidden;
+}
+.cue-line::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: var(--accent);
+  animation: cue-drop 2.2s ease-in-out infinite;
+}
+@keyframes cue-drop {
+  0%   { top: -50%; }
+  100% { top: 110%; }
+}
+
+/* ============================================================
+   02 · PROOF BAR
+   ============================================================ */
+.proof-bar {
+  border-block: 1px solid var(--hairline);
+  padding-block: clamp(48px, 6vw, 72px);
+  background: linear-gradient(to bottom, rgba(16, 18, 24, 0.5), transparent);
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-top: 12px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   03 · WORK — the dashboard frame
+   ============================================================ */
+.dashboard {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+}
+
+/* — titlebar (the fake macOS window chrome) — */
+.dash-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+.dash-dots { display: flex; gap: 7px; }
+.dash-dots i {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--hairline);
+}
+.dash-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dash-badge {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  border: 1px solid rgba(0, 217, 163, 0.35);
+  border-radius: 999px;
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+
+.dash-body { padding: clamp(20px, 3vw, 32px); }
+
+/* — toolbar: region chips — */
+.dash-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.toolbar-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+}
+.chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  color: var(--text-dim);
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.chip:hover { color: var(--text); border-color: var(--text-dim); }
+.chip.is-active {
+  color: var(--accent);
+  border-color: rgba(0, 217, 163, 0.5);
+  background: var(--accent-soft);
+}
+
+/* — KPI cards — */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.kpi-card {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: border-color 0.3s ease;
+}
+.kpi-card:hover { border-color: rgba(0, 217, 163, 0.3); }
+
+.kpi-label {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+.kpi-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  letter-spacing: -0.01em;
+  margin-top: 10px;
+  line-height: 1.1;
+}
+.kpi-delta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  margin-top: 8px;
+  color: var(--text-dim);
+}
+/* Positive variance gets the accent; negative stays dim — one accent color rule */
+.kpi-delta.up   { color: var(--accent); }
+.kpi-delta.down { color: var(--text-dim); }
+
+/* — charts — */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.chart-card {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.chart-title {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+/* Fixed-height box so Chart.js has a stable canvas to fill */
+.chart-box { height: 280px; position: relative; }
+
+/* — analyst note — */
+.analyst-note {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-left: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+}
+.note-label {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.note-text {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  max-width: 72ch;
+  transition: opacity 0.25s ease;
+}
+.note-text strong { color: var(--text); font-weight: 600; }
+
+/* — caption under the dashboard frame — */
+.dash-caption {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+.caption-tags { display: flex; gap: 8px; flex-wrap: wrap; max-width: 380px; }
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 6px 14px;
+  white-space: nowrap;
+}
+.caption-text { color: var(--text-dim); max-width: 520px; }
+
+/* — showcase 02 placeholder — */
+.dashboard-next {
+  margin-top: 72px;
+  border: 1px dashed var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: clamp(32px, 5vw, 56px);
+  text-align: center;
+}
+.dashboard-next .eyebrow { margin-bottom: 12px; }
+.next-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+}
+.next-sub { color: var(--text-dim); margin-top: 8px; font-size: 0.95rem; }
+
+/* ============================================================
+   04 · CAPABILITIES
+   ============================================================ */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.cap-card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: clamp(28px, 4vw, 40px);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+/* the capstone card spans the full row (2-2-1 layout) */
+.cap-card-wide { grid-column: 1 / -1; }
+.cap-card-wide .cap-text { max-width: 62ch; }
+.cap-card:hover {
+  border-color: rgba(0, 217, 163, 0.3);
+  transform: translateY(-4px);
+}
+
+.cap-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  margin-bottom: 40px;
+}
+.cap-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+}
+.cap-text { color: var(--text-dim); margin-top: 12px; font-size: 0.95rem; }
+.cap-tags {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  margin-top: 28px;
+}
+
+/* ============================================================
+   QUALIFICATIONS — certification logo wall
+   Issuer marks are MONOCHROME on purpose (premium logo-wall
+   convention — no clashing brand colors in the design system).
+   ============================================================ */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.cert-card {
+  position: relative;
+  overflow: hidden;             /* clips the sheen sweep */
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 3vw, 32px) clamp(20px, 2.5vw, 28px);
+  text-align: center;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.cert-card:hover { transform: translateY(-4px); border-color: var(--text-dim); }
+
+/* — the credential "gloss": a light band sweeps across on hover — */
+.cert-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg,
+    transparent 40%, var(--accent-soft) 50%, transparent 60%);
+  transform: translateX(-120%);
+  transition: transform 0.9s ease;
+  pointer-events: none;
+}
+.cert-card:hover::before { transform: translateX(120%); }
+
+/* — the "stamp" ring pulse, fired once by JS after the card lands — */
+.cert-card.is-stamped { animation: marker-ping 0.9s ease-out 1; }
+
+.cert-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 34px;
+  margin-bottom: 18px;
+  color: var(--text);
+}
+.ms-squares rect { fill: currentColor; }
+.cert-wordmark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+.cert-wordmark-serif {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+}
+
+.cert-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  min-height: 2.6em;            /* two lines — keeps the row aligned */
+}
+.cert-code {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+  margin-top: 8px;
+}
+.cert-status {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin-top: 14px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 12px;
+}
+.cert-check {
+  display: inline-block;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  line-height: 13px;
+  font-size: 0.55rem;
+  margin-right: 4px;
+}
+
+/* ————————————————————————————————————————————————————————————
+   PER-ISSUER HOVER SIGNATURES — "the color bloom".
+   At rest the wall is monochrome wordmarks. On hover, the mono
+   mark fades out and the REAL logo blooms in, full brand color,
+   each with an entrance built from that brand's identity.
+   Official assets live in assets/logos/ (Wikimedia Commons).
+   ———————————————————————————————————————————————————————————— */
+.cert-fx {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;      /* the logo blooms in the wordmark's slot */
+  justify-content: center;
+  padding-top: 20px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.cert-card:hover .cert-fx { opacity: 1; }
+/* card content sits above the effect layer… */
+.cert-card > :not(.cert-fx) { position: relative; z-index: 1; }
+/* …and the mono wordmark steps aside as the color arrives */
+.cert-logo { transition: opacity 0.3s ease, transform 0.3s ease; }
+.cert-card:hover .cert-logo { opacity: 0; transform: translateY(-4px) scale(0.92); }
+
+.cert-fx img, .cert-fx svg { display: block; opacity: 0; }
+
+/* — HARVARD: the crimson coat of arms presses in like a wax seal — */
+.fx-harvard img { height: 66px; }
+.cert-card:hover .fx-harvard img {
+  animation: fx-seal 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes fx-seal {
+  from { opacity: 0; transform: scale(1.6) rotate(8deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+/* — WHARTON: the Penn shield swings down like hung heraldry — */
+.fx-wharton img { height: 60px; transform-origin: top center; }
+.cert-card:hover .fx-wharton img { animation: fx-swing 0.7s ease forwards; }
+@keyframes fx-swing {
+  0%   { opacity: 0; transform: rotate(-16deg) translateY(-10px); }
+  60%  { opacity: 1; transform: rotate(5deg); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* — MICROSOFT: the real four squares fly in from the corners — */
+.fx-microsoft svg { width: 48px; height: 48px; overflow: visible; }
+.fx-microsoft path {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.fx-microsoft path:nth-of-type(1) { transform: translate(-16px, -16px); }
+.fx-microsoft path:nth-of-type(2) { transform: translate(16px, -16px); }
+.fx-microsoft path:nth-of-type(3) { transform: translate(-16px, 16px); }
+.fx-microsoft path:nth-of-type(4) { transform: translate(16px, 16px); }
+.cert-card:hover .fx-microsoft svg { opacity: 1; }
+.cert-card:hover .fx-microsoft path { animation: fx-assemble 0.4s ease forwards; }
+.cert-card:hover .fx-microsoft path:nth-of-type(2) { animation-delay: 0.07s; }
+.cert-card:hover .fx-microsoft path:nth-of-type(3) { animation-delay: 0.14s; }
+.cert-card:hover .fx-microsoft path:nth-of-type(4) { animation-delay: 0.21s; }
+@keyframes fx-assemble { to { opacity: 1; transform: none; } }
+
+/* — PALANTIR: the mark materializes out of focus, one ring echoes — */
+.fx-palantir img { width: 120px; }
+.cert-card:hover .fx-palantir img { animation: fx-materialize 0.7s ease forwards; }
+@keyframes fx-materialize {
+  from { opacity: 0; filter: blur(8px); transform: scale(0.92); }
+  to   { opacity: 1; filter: blur(0);  transform: scale(1); }
+}
+.pal-ring {
+  position: absolute;
+  top: 18px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--text);
+  border-radius: 50%;
+  opacity: 0;
+}
+.cert-card:hover .pal-ring { animation: fx-echo 1.2s ease-out 0.3s 1; }
+@keyframes fx-echo {
+  0%   { transform: scale(0.5); opacity: 0.3; }
+  100% { transform: scale(3);   opacity: 0; }
+}
+
+/* — GOOGLE: the G rolls in, its four colors pop around it — */
+.fx-g-wrap { position: relative; display: block; }
+.fx-google img { height: 50px; }
+.cert-card:hover .fx-google img {
+  animation: fx-roll 0.6s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+}
+@keyframes fx-roll {
+  from { opacity: 0; transform: translateX(-28px) rotate(-180deg); }
+  to   { opacity: 1; transform: none; }
+}
+.gdot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: scale(0);
+}
+.gdot:nth-of-type(1) { background: #4285F4; top: -8px;  left: -10px; }
+.gdot:nth-of-type(2) { background: #EA4335; top: -8px;  right: -10px; }
+.gdot:nth-of-type(3) { background: #FBBC05; bottom: -6px; left: -10px; }
+.gdot:nth-of-type(4) { background: #34A853; bottom: -6px; right: -10px; }
+.cert-card:hover .gdot { animation: fx-dotpop 0.35s ease forwards; }
+.cert-card:hover .gdot:nth-of-type(1) { animation-delay: 0.45s; }
+.cert-card:hover .gdot:nth-of-type(2) { animation-delay: 0.55s; }
+.cert-card:hover .gdot:nth-of-type(3) { animation-delay: 0.65s; }
+.cert-card:hover .gdot:nth-of-type(4) { animation-delay: 0.75s; }
+@keyframes fx-dotpop { to { transform: scale(1); } }
+
+/* — IBM: the blue mark prints itself, left to right — */
+.fx-ibm img { height: 42px; }
+.cert-card:hover .fx-ibm img { animation: fx-print 0.7s ease-out forwards; }
+@keyframes fx-print {
+  from { opacity: 1; clip-path: inset(0 100% 0 0); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+/* — NVIDIA: the wordmark ignites — power-on glow in NVIDIA green — */
+.fx-nvidia svg { width: 132px; height: auto; }
+.cert-card:hover .fx-nvidia svg { animation: fx-ignite 0.9s ease forwards; }
+@keyframes fx-ignite {
+  0%   { opacity: 0.1; filter: drop-shadow(0 0 0 rgba(118, 185, 0, 0)); }
+  55%  { opacity: 1;   filter: drop-shadow(0 0 10px rgba(118, 185, 0, 0.8)); }
+  100% { opacity: 1;   filter: drop-shadow(0 0 4px rgba(118, 185, 0, 0.4)); }
+}
+
+/* — KPMG: the blue mark stamps down like an audit seal — */
+.fx-kpmg img { height: 44px; }
+.cert-card:hover .fx-kpmg img {
+  animation: fx-auditstamp 0.35s cubic-bezier(0.2, 1.6, 0.4, 1) forwards;
+}
+@keyframes fx-auditstamp {
+  from { opacity: 0; transform: scale(1.5) rotate(-8deg); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* — SCRUM.ORG: their hexagonal credential badge flips in — */
+.fx-scrum { perspective: 400px; }
+.fx-hex {
+  width: 58px;
+  height: 64px;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  background: linear-gradient(160deg, #57aee0, #1c6ea4);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  opacity: 0;
+}
+.cert-card:hover .fx-hex { animation: fx-flip 0.55s ease forwards; }
+@keyframes fx-flip {
+  from { opacity: 0; transform: rotateY(100deg) scale(0.8); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (max-width: 1000px) { .cert-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .cert-grid { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   05 · EXPERIENCE — timeline
+   ============================================================ */
+.timeline {
+  position: relative;
+  max-width: 720px;
+  padding-left: 40px;
+  --draw: 0; /* 0 → 1, animated by GSAP as you scroll (effects.js) */
+}
+/* the vertical spine — draws itself in via scaleY(var(--draw)) */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), var(--hairline) 40%);
+  transform: scaleY(var(--draw));
+  transform-origin: top;
+}
+/* if JS/GSAP is missing, show the full spine */
+html:not(.js) .timeline { --draw: 1; }
+
+.tl-item { position: relative; padding-bottom: 64px; }
+.tl-item:last-child { padding-bottom: 0; }
+
+.tl-marker {
+  position: absolute;
+  left: -40px;
+  top: 6px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 16px rgba(0, 217, 163, 0.4);
+}
+
+/* — dossier header: logo plate + identity block — */
+.tl-head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.tl-logo-plate {
+  /* a physical "badge" — deliberately paper-colored even on ink
+     bands, like a real ID card clipped to the dossier */
+  background: #f5f4f0;
+  border-radius: 3px;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.tl-logo {
+  height: 30px;
+  width: auto;
+  display: block;
+  filter: grayscale(1) opacity(0.7);   /* mono at rest… */
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+/* …the company's colors bloom when you visit the entry */
+.tl-item:hover .tl-logo { filter: none; transform: scale(1.05); }
+.tl-item:hover .tl-logo-plate {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* — mono metadata chips per role — */
+.tl-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.tl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  padding: 6px 11px;
+}
+.tl-chip.is-live { color: var(--accent); border-color: var(--accent); }
+.tl-chip.is-live i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: live-pulse 1.8s ease-out infinite;
+}
+@keyframes live-pulse {
+  0%   { box-shadow: 0 0 0 0 var(--accent-glow); }
+  100% { box-shadow: 0 0 0 7px transparent; }
+}
+.tl-chip.is-honor { color: var(--accent); }
+
+.tl-date {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+.tl-role {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  margin-top: 10px;
+  letter-spacing: -0.01em;
+}
+.tl-org { color: var(--text-dim); margin-top: 4px; }
+.tl-points { margin-top: 16px; }
+.tl-points li {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: 8px;
+}
+.tl-points li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* ============================================================
+   06 · CONTACT + FOOTER
+   ============================================================ */
+.contact-inner { text-align: center; position: relative; }
+
+.contact-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 48px;
+}
+.contact-sub {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-top: 24px;
+}
+
+.site-footer {
+  border-top: 1px solid var(--hairline);
+  padding-block: 28px;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+}
+
+/* ============================================================
+   RESPONSIVE — full mobile pass is a later phase; this keeps
+   everything usable on small screens meanwhile.
+   ============================================================ */
+@media (max-width: 900px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .chart-grid { grid-template-columns: 1fr; }
+  .cap-grid { grid-template-columns: 1fr; }
+  .proof-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
+}
+
+@media (max-width: 640px) {
+  .nav-links a:not(.nav-cta) { display: none; } /* proper mobile menu comes later */
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .chart-box { height: 230px; }
+  .dash-caption { flex-direction: column; gap: 20px; }
+}
+
+/* ============================================================
+   PREMIUM MOTION LAYER — preloader, cursor, marquee, ghosts…
+   (all driven by js/effects.js)
+   ============================================================ */
+
+/* — PRELOADER — full-screen curtain, only shown when JS runs — */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--bg);
+  display: none;             /* hidden without JS… */
+  align-items: center;
+  justify-content: center;
+}
+.js .preloader { display: flex; } /* …shown when JS is alive */
+
+.preloader-inner { text-align: center; }
+.preloader-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 28px;
+}
+.preloader-count {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.5rem, 10vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.preloader-count em {
+  font-style: normal;
+  font-size: 0.35em;
+  color: var(--text-dim);
+}
+.preloader-bar {
+  width: min(320px, 60vw);
+  height: 1px;
+  background: var(--hairline);
+  margin: 28px auto 0;
+  overflow: hidden;
+}
+.preloader-bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);       /* effects.js scales this 0 → 1 */
+  transform-origin: left;
+}
+.preloader-hint {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: var(--text-dim);
+  margin-top: 20px;
+}
+
+/* — SCROLL PROGRESS — hairline across the very top — */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);       /* GSAP scrubs this with scroll */
+  transform-origin: left;
+  z-index: 200;               /* above the header */
+  pointer-events: none;
+}
+
+/* — CUSTOM CURSOR — dot + trailing ring — */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 999;
+  pointer-events: none;       /* never block clicks */
+  border-radius: 50%;
+  opacity: 0;                 /* revealed on first mouse move */
+  display: none;              /* enabled only on fine pointers */
+}
+.has-cursor .cursor-dot, .has-cursor .cursor-ring { display: block; }
+.has-cursor, .has-cursor a, .has-cursor button { cursor: none; } /* ours replaces the native one */
+
+.cursor-dot {
+  width: 6px; height: 6px;
+  margin: -3px 0 0 -3px;      /* center on the pointer */
+  background: var(--accent);
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1px solid rgba(0, 217, 163, 0.4);
+  transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease,
+              border-color 0.25s ease;
+}
+/* ring grows over anything clickable */
+.cursor-ring.is-hovering {
+  width: 56px; height: 56px;
+  margin: -28px 0 0 -28px;
+  border-color: rgba(0, 217, 163, 0.9);
+}
+
+/* — MARQUEE — infinite skill ticker between sections — */
+.marquee {
+  overflow: hidden;
+  border-bottom: 1px solid var(--hairline);
+  padding-block: 22px;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+}
+.marquee-track span {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+@keyframes marquee-scroll {
+  /* track = two identical halves, so -50% loops seamlessly */
+  to { transform: translateX(-50%); }
+}
+
+/* — GHOST WORDS — huge outlined words behind section titles — */
+.ghost {
+  position: absolute;
+  top: -0.35em;
+  left: -0.04em;
+  z-index: -1;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(6rem, 17vw, 13rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--hairline);
+  opacity: 0.6;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.ghost-center { left: 50%; transform: translateX(-50%); }
+
+/* — DASHBOARD 3D STAGE — gives the tilt-up entrance its depth — */
+.dash-stage {
+  perspective: 1400px;        /* how "deep" the 3D tilt reads */
+}
+#dashboard-01 {
+  transform-origin: center top;
+  will-change: transform;     /* hint: this will animate — keep it smooth */
+}
+
+/* — SPLIT TITLE MASKS — lines slide up from behind these — */
+.split-line { will-change: transform; }
+
+/* ============================================================
+   HUD LAYER — the "intelligence platform" look (Palantir-grade):
+   blueprint grid, corner brackets, section rails, telemetry.
+   ============================================================ */
+
+/* — BLUEPRINT GRID — faint vertical survey lines, full height — */
+.blueprint-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 1;                 /* above backgrounds, invisible over text (4% opacity) */
+  pointer-events: none;
+  width: min(var(--container), 100% - 48px);
+  margin-inline: auto;
+  border-inline: 1px solid rgba(242, 243, 245, 0.05);
+  background:
+    linear-gradient(rgba(242, 243, 245, 0.03), rgba(242, 243, 245, 0.03)) no-repeat 25% 0 / 1px 100%,
+    linear-gradient(rgba(242, 243, 245, 0.03), rgba(242, 243, 245, 0.03)) no-repeat 50% 0 / 1px 100%,
+    linear-gradient(rgba(242, 243, 245, 0.03), rgba(242, 243, 245, 0.03)) no-repeat 75% 0 / 1px 100%;
+}
+
+/* — HERO HUD FRAME — corner brackets + live status readout — */
+.hud-frame { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+
+.hud-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(0, 217, 163, 0.45);
+}
+.hud-tl { top: 84px; left: 24px;  border-right: none;  border-bottom: none; }
+.hud-tr { top: 84px; right: 24px; border-left: none;   border-bottom: none; }
+.hud-bl { bottom: 24px; left: 24px;  border-right: none; border-top: none; }
+.hud-br { bottom: 24px; right: 24px; border-left: none;  border-top: none; }
+
+.hud-status {
+  position: absolute;
+  top: 92px;                  /* sits just under the fixed header */
+  left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+}
+
+/* — SECTION RAILS — full-width rule + mono microlabels,
+     with "+" survey marks at both ends of the line — */
+.section-rail {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 14px;
+  margin-bottom: 24px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+.section-rail::before,
+.section-rail::after {
+  content: '+';
+  position: absolute;
+  top: -0.72em;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  opacity: 0.8;
+}
+.section-rail::before { left: -5px; }
+.section-rail::after  { right: -5px; }
+
+.rail-label { color: var(--accent); }
+.rail-meta  { color: var(--text-dim); text-align: right; }
+
+/* — PRELOADER BOOT LOG — terminal lines under the counter — */
+.preloader-log {
+  width: min(320px, 60vw);
+  margin: 24px auto 0;
+  height: 5.2em;              /* reserve space so the layout doesn't jump */
+  overflow: hidden;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+.preloader-log .ok { color: var(--accent); }
+
+/* — FOOTER SYSTEM READOUT — */
+.footer-sys {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px 32px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--text-dim);
+}
+.footer-sys a { transition: color 0.25s ease; }
+.footer-sys a:hover { color: var(--accent); }
+
+/* — CARD CORNER BRACKETS — appear on hover (Palantir card move) — */
+.kpi-card, .cap-card, .chart-card { position: relative; }
+
+.kpi-card::before, .cap-card::before {
+  content: '';
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 10px; height: 10px;
+  border-top: 1px solid var(--accent);
+  border-right: 1px solid var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.kpi-card::after, .cap-card::after {
+  content: '';
+  position: absolute;
+  bottom: 8px; left: 8px;
+  width: 10px; height: 10px;
+  border-bottom: 1px solid var(--accent);
+  border-left: 1px solid var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.kpi-card:hover::before, .kpi-card:hover::after,
+.cap-card:hover::before, .cap-card:hover::after { opacity: 0.9; }
+
+/* Hide decorative HUD chrome on small screens — it gets cramped */
+@media (max-width: 900px) {
+  .blueprint-grid { display: none; }
+  .hud-corner { display: none; }
+  .hud-status { justify-content: center; }
+  .hud-status span:not(.hud-clock) { display: none; }
+  .rail-meta { display: none; }
+}
+
+/* ============================================================
+   FX COMPONENTS — used by the variant pages (palantir.html /
+   blueprint.html via js/palantir-fx.js). Fully token-driven, so
+   every theme colors them through --accent / --accent-glow.
+   Harmless on pages that don't include the markup.
+   ============================================================ */
+
+/* — RADAR WIDGET — tiny spinning sweep in the hero HUD row — */
+.radar {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  vertical-align: -4px;
+}
+.radar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 0deg, var(--accent-glow), transparent 35%);
+  animation: radar-spin 3s linear infinite;
+}
+@keyframes radar-spin { to { transform: rotate(360deg); } }
+
+/* — SCAN SWEEP — light beam over the dashboard on entry — */
+.dash-stage { position: relative; }
+.scan-sweep {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 24px var(--accent-glow);
+  opacity: 0;                 /* revealed + moved by GSAP */
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* — BORDER DRAW — four hairlines tracing around capability cards — */
+.cap-card .draw {
+  position: absolute;
+  background: var(--accent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.cap-card .draw-t { top: 0;    left: 0;  width: 100%; height: 1px; transform: scaleX(0); transform-origin: left; }
+.cap-card .draw-r { top: 0;    right: 0; width: 1px;  height: 100%; transform: scaleY(0); transform-origin: top; }
+.cap-card .draw-b { bottom: 0; right: 0; width: 100%; height: 1px; transform: scaleX(0); transform-origin: right; }
+.cap-card .draw-l { bottom: 0; left: 0;  width: 1px;  height: 100%; transform: scaleY(0); transform-origin: bottom; }
+
+/* — TIMELINE PING — markers pulse once as the spine reaches them — */
+.tl-marker.is-hit { animation: marker-ping 0.9s ease-out 1; }
+@keyframes marker-ping {
+  0%   { box-shadow: 0 0 0 0 var(--accent-glow); }
+  100% { box-shadow: 0 0 0 20px transparent; }
+}
+
+/* — REVERSED MARQUEE (second row runs the other way) — */
+.marquee-rev .marquee-track {
+  animation-direction: reverse;
+  animation-duration: 34s;    /* slightly different speed = more alive */
+}
+.marquee + .marquee-rev { border-top: none; } /* stacked rows share one hairline */
+
+/* ============================================================
+   SHOWCASE INTERIORS (02–05) — each dashboard has a unique
+   layout. Everything reads design tokens, so the same markup
+   works on paper sections and ink bands alike.
+   ============================================================ */
+
+/* ——— SHOWCASE CONSOLE — one section, click-to-switch ——— */
+.sc-block[hidden] { display: none; }
+
+/* The section's background morphs when the active showcase's
+   band changes (work-console.js toggles .band-ink). */
+#work {
+  transition: background-color 0.6s ease, border-color 0.6s ease;
+}
+
+.console-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-block: 1px solid var(--hairline);
+  padding-block: 12px;
+  margin-bottom: clamp(32px, 4vw, 48px);
+  /* Docks under the fixed header while browsing the console, so
+     visitors can switch dashboards without scrolling back up. */
+  position: sticky;
+  top: 58px;
+  z-index: 40;
+  background: var(--bg);                  /* band-aware — morphs with the section */
+  transition: background-color 0.6s ease;
+}
+.console-tab {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  border: 1px solid transparent;
+  border-radius: 2px;
+  padding: 9px 14px;
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  white-space: nowrap;
+}
+.console-tab:hover { color: var(--text); }
+.console-tab.is-active {
+  color: var(--accent);
+  border-color: var(--hairline);
+  background: var(--accent-soft);
+}
+.console-spacer { flex: 1; }
+.console-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.console-arrow:hover { color: var(--text); border-color: var(--text-dim); }
+
+/* Shared: a showcase's headline block above its frame */
+.sc-head { margin-bottom: clamp(32px, 4vw, 48px); position: relative; }
+.sc-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+/* ——— 02 · COVERAGE HEAT MATRIX ——— */
+.cov-layout {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 14px;
+}
+.cov-matrix-card, .cov-brief {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.cov-grid {
+  display: grid;
+  /* month label + 5 region cells + row-average column */
+  grid-template-columns: 56px repeat(5, 1fr) 46px;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+}
+.cov-col-head, .cov-row-head {
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 2px;
+  text-transform: uppercase;
+}
+.cov-row-head { justify-content: flex-start; }
+
+/* Each cell = its coverage value + a mini bar. Reads like data,
+   not decoration: healthy cells solid-framed, whitespace dashed. */
+.cov-cell {
+  position: relative;
+  height: 38px;
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  background: transparent;
+  padding: 5px 7px 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.cov-cell .cv {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  line-height: 1;
+  color: var(--text);
+}
+.cov-cell .bar {
+  display: block;
+  height: 3px;
+  background: var(--accent-soft);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.cov-cell .bar i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 1px;
+}
+.cov-cell:hover { transform: scale(1.06); border-color: var(--text-dim); z-index: 2; }
+.cov-cell.is-selected { border-color: var(--text); box-shadow: inset 0 0 0 1px var(--text); z-index: 2; }
+/* whitespace cells: dashed frame, tinted field, dimmed value */
+.cov-cell.is-gap { border-style: dashed; background: var(--accent-soft); }
+.cov-cell.is-gap .cv { color: var(--text-dim); }
+.cov-cell.is-gap .bar i { opacity: 0.45; }
+
+/* city-average column */
+.cov-avg {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  padding-right: 2px;
+}
+
+.cov-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.cov-slider-row label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+}
+.cov-value {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  min-width: 42px;
+}
+
+/* Styled range sliders (used by showcases 02 + 03) */
+input[type="range"].hud-range {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  min-width: 120px;
+  height: 2px;
+  background: var(--hairline);
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"].hud-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;              /* square thumb = the HUD language */
+  background: var(--accent);
+  border: none;
+}
+input[type="range"].hud-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--accent);
+  border: none;
+}
+
+.brief-label {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.brief-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+}
+.brief-stats {
+  display: flex;
+  gap: 24px;
+  margin: 14px 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+.brief-stats strong { color: var(--text); display: block; font-size: 1.05rem; }
+.brief-action {
+  border-top: 1px solid var(--hairline);
+  padding-top: 12px;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+.brief-action strong { color: var(--text); }
+
+/* ——— 03 · SCENARIO STUDIO ——— */
+.scn-layout {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 14px;
+}
+.scn-controls, .scn-chart-card {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.scn-lever { margin-bottom: 22px; }
+.scn-lever-head {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+.scn-lever-head output { color: var(--accent); }
+.scn-reset {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  padding: 8px 14px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.scn-reset:hover { color: var(--text); border-color: var(--text-dim); }
+.scn-deltas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+
+/* ——— 04 · VARIANCE BRIDGE ——— */
+.brg-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.brg-takeaway {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-left: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-top: 14px;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+.brg-takeaway strong { color: var(--text); }
+.brg-chart-card {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.chart-box-tall { height: 340px; position: relative; }
+
+/* ——— 05 · BRAND PERFORMANCE — ranked product bars ——— */
+.kpi-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+.bp-list {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 14px;
+}
+.bp-row {
+  display: grid;
+  grid-template-columns: 84px 1fr 92px 58px;
+  align-items: center;
+  gap: 14px;
+  padding-block: 10px;
+}
+.bp-row + .bp-row { border-top: 1px solid var(--hairline); }
+.bp-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.bp-track {
+  display: block;
+  height: 8px;
+  background: var(--accent-soft);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.bp-track i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+.bp-row.is-down .bp-track i { opacity: 0.35; }
+.bp-row.is-down .bp-name { color: var(--text-dim); }
+.bp-val {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-align: right;
+  white-space: nowrap;
+}
+.bp-growth {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  text-align: right;
+  white-space: nowrap;
+}
+.bp-growth.is-up { color: var(--accent); }
+.bp-growth.is-down { color: var(--text-dim); }
+
+.sig-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.sig-run {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--bg);
+  background: var(--accent);
+  border-radius: 2px;
+  padding: 10px 20px;
+  transition: opacity 0.2s ease;
+}
+.sig-run:hover { opacity: 0.85; }
+.sig-status {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+}
+/* (sparkline-wall styles removed — Showcase 05 is now the
+   KPI Health Check board, styled above) */
+
+/* ——— APPS SECTION — terminal demo + app fleet ——— */
+.app-body {
+  display: grid;
+  /* the OUTPUT is the star: terminal gets 1/3, report gets 2/3 */
+  grid-template-columns: 1fr 2fr;
+  gap: 14px;
+}
+.app-log-card {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 20px;
+  min-height: 300px;
+}
+.app-log {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  color: var(--text-dim);
+}
+.app-log p { margin: 0; }
+.app-log .cmd { color: var(--text); }
+.app-log .ok { color: var(--accent); }
+.app-log .done {
+  color: var(--accent);
+  border-top: 1px solid var(--hairline);
+  display: block;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+/* blinking caret while the app "works" */
+.app-log .caret {
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  background: var(--accent);
+  vertical-align: -2px;
+  animation: caret-blink 0.9s steps(1) infinite;
+}
+@keyframes caret-blink { 50% { opacity: 0; } }
+
+/* — app switcher tabs inside the window — */
+.app-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+.app-tab {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  border: 1px solid transparent;
+  border-radius: 2px;
+  padding: 8px 14px;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.app-tab:hover { color: var(--text); }
+.app-tab.is-active {
+  color: var(--accent);
+  border-color: var(--hairline);
+  background: var(--accent-soft);
+}
+.app-pane[hidden] { display: none; }
+
+/* — controls row above each app's log/output — */
+.app-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.app-controls .sig-run:disabled,
+.app-controls .scn-reset:disabled { opacity: 0.35; cursor: default; }
+
+/* — output panel (report sheet / exception table lands here) — */
+.report-out {
+  border: 1px dashed var(--hairline);
+  border-radius: var(--radius);
+  padding: 16px;
+  min-height: 460px;          /* the report deserves a real stage */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.report-out.has-output {
+  border-style: solid;
+  background: var(--bg);
+  justify-content: flex-start;
+}
+.report-empty {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  color: var(--text-dim);
+  text-align: center;
+  line-height: 2;
+}
+
+/* — the generated report: styled as a PAPER DOCUMENT on purpose,
+     even inside the ink band — it's the artifact the app produced.
+     (Deliberately hardcoded document colors, not theme tokens.) — */
+.report-sheet {
+  background: #fbfaf7;
+  color: #1e2124;
+  border-radius: 3px;
+  padding: 18px 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  font-size: 0.8rem;
+}
+.rs-title {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+}
+.rs-date {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: #6a6a66;
+  margin-top: 3px;
+}
+.rs-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 14px 0;
+}
+.rs-kpi { border: 1px solid #e3e1da; border-radius: 2px; padding: 8px 10px; }
+.rs-kpi b { display: block; font-family: var(--font-display); font-size: 0.95rem; }
+.rs-kpi span { font-family: var(--font-mono); font-size: 0.52rem; letter-spacing: 0.1em; color: #6a6a66; }
+.rs-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.62rem; }
+.rs-table th {
+  text-align: left;
+  color: #6a6a66;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid #1e2124;
+  padding: 4px 6px;
+}
+.rs-table td { padding: 5px 6px; border-bottom: 1px solid #eceae3; }
+.rs-table td.num { text-align: right; }
+.rs-notes { margin-top: 12px; font-size: 0.72rem; color: #3a3d40; }
+.rs-notes li { margin-left: 16px; margin-top: 4px; }
+.rs-file {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  color: #6a6a66;
+  margin-top: 12px;
+  border-top: 1px solid #eceae3;
+  padding-top: 8px;
+}
+
+/* in-table visual bar (achievement / share / score) */
+.rs-bar {
+  display: block;
+  width: 100%;
+  min-width: 56px;
+  height: 4px;
+  background: #eceae3;
+  border-radius: 1px;
+  overflow: hidden;
+}
+.rs-bar i { display: block; height: 100%; background: #1e2124; border-radius: 1px; }
+.rs-table tr.rs-total td {
+  border-top: 1px solid #1e2124;
+  border-bottom: none;
+  font-weight: 600;
+  color: #1e2124;
+}
+.rs-table tr.is-flagged td { background: #f3efe4; }   /* the watch-out row */
+.rs-table tr.is-leader td { font-weight: 600; }
+.rs-tag {
+  display: inline-block;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  color: #6a6a66;
+  border: 1px solid #e3e1da;
+  border-radius: 2px;
+  padding: 1px 5px;
+  margin-left: 6px;
+  vertical-align: 1px;
+}
+.rs-move-up { color: #1e2124; font-weight: 600; }
+.rs-move-down { color: #a0a09a; }
+
+/* — impact strip under the app window — */
+.app-strip {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px 32px;
+  flex-wrap: wrap;
+  border-block: 1px solid var(--hairline);
+  padding-block: 14px;
+  margin-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  color: var(--text-dim);
+}
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 32px;
+}
+.app-card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 3vw, 34px);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.app-card:hover { transform: translateY(-4px); border-color: var(--text-dim); }
+.app-card .cap-num { margin-bottom: 28px; }
+.app-impact {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-top: 16px;
+}
+.app-card .cap-tags { margin-top: 12px; }
+
+/* ——— responsive: showcase layouts stack on small screens ——— */
+@media (max-width: 900px) {
+  .cov-layout, .scn-layout, .app-body { grid-template-columns: 1fr; }
+  .apps-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .kpi-grid.cols-3 { grid-template-columns: 1fr; }
+  .bp-row { grid-template-columns: 70px 1fr 70px 48px; gap: 8px; }
+}
+
+/* ============================================================
+   ACCESSIBILITY — reduced motion
+   JS also checks this and skips animations; this is the CSS half.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; }        /* never hide content */
+  .js .preloader { display: none; }  /* no curtain, straight to content */
+  .cue-line::after { animation: none; }
+  .marquee-track { animation: none; }
+  .cursor-dot, .cursor-ring { display: none !important; }
+  .timeline { --draw: 1; }           /* spine fully drawn */
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,320 @@
+/* ============================================================
+   IVORY VARIANT THEME — the AUTHENTIC Palantir palette, loaded
+   after style.css on palantir.html only.
+
+   Colors extracted live from palantir.com's own stylesheet:
+     backgrounds  #ffffff / #f3f3f3   (paper / off-white)
+     ink text     #1e2124             (--text-color)
+     grays        #636363 / #767676   (--text-color-medium/light)
+     accent       #2b5945             (--accent-color, forest green)
+
+   This is a LIGHT theme, so besides retinting tokens it flips
+   everything that assumed darkness: shadows, grid lines, HUD
+   chrome, and the header blur.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. TOKEN OVERRIDES (on <html> so JS token readers pick them up)
+   ------------------------------------------------------------ */
+html.theme-ivory {
+  --bg:        #f3f2ee;   /* their off-white, warmed one step toward cream */
+  --surface:   #ffffff;   /* raised panels = pure paper */
+  --hairline:  #dddbd4;
+  --text:      #1e2124;   /* Palantir ink */
+  --text-dim:  #6a6a66;
+  /* MONOCHROME accent — Palantir's visible language is ink on
+     paper (their CSS green exists but barely appears). Accent on
+     paper = ink; inside ink bands it flips to white. */
+  --accent:    #1e2124;
+  --accent-soft: rgba(30, 33, 36, 0.06);
+  --accent-glow: rgba(30, 33, 36, 0.3);
+
+  /* Palantir is SQUARE — almost no rounding anywhere on their site */
+  --radius: 2px;
+  --radius-lg: 3px;
+
+  /* Their headline font is Alliance No.1 (proprietary) — Inter Tight
+     is the closest clean neo-grotesk on Google Fonts */
+  --font-display: 'Inter Tight', 'Inter', sans-serif;
+}
+
+/* Palantir's headline voice: tighter, less shouty, engineered */
+.theme-ivory .section-title {
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.theme-ivory .hero-title {
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+/* Square language carries into the small controls */
+.theme-ivory .btn,
+.theme-ivory .chip,
+.theme-ivory .dash-badge,
+.theme-ivory .tag,
+.theme-ivory .nav-cta { border-radius: 2px; }
+
+/* ------------------------------------------------------------
+   2. LIGHT-THEME CORRECTIONS
+   Rules in style.css that baked in dark-world values.
+   ------------------------------------------------------------ */
+
+/* Header blur was dark glass — make it paper glass */
+.theme-ivory .site-header.is-scrolled {
+  background: rgba(243, 242, 238, 0.8);
+}
+
+/* Heavy black drop shadow reads harsh on paper — soften it */
+.theme-ivory .dashboard {
+  box-shadow: 0 30px 60px rgba(30, 33, 36, 0.12);
+}
+
+/* Survey grid: ink lines instead of white ones */
+.theme-ivory .blueprint-grid {
+  border-inline-color: rgba(30, 33, 36, 0.08);
+  background:
+    linear-gradient(rgba(30, 33, 36, 0.05), rgba(30, 33, 36, 0.05)) no-repeat 25% 0 / 1px 100%,
+    linear-gradient(rgba(30, 33, 36, 0.05), rgba(30, 33, 36, 0.05)) no-repeat 50% 0 / 1px 100%,
+    linear-gradient(rgba(30, 33, 36, 0.05), rgba(30, 33, 36, 0.05)) no-repeat 75% 0 / 1px 100%;
+}
+
+/* HUD chrome in ink */
+.theme-ivory .hud-corner { border-color: rgba(30, 33, 36, 0.4); }
+
+/* Emerald rgba() values baked into style.css — re-tint to ink */
+.theme-ivory .chip.is-active {
+  color: var(--accent);
+  border-color: rgba(30, 33, 36, 0.55);
+  background: var(--accent-soft);
+}
+.theme-ivory .dash-badge {
+  color: var(--accent);
+  border-color: rgba(30, 33, 36, 0.35);
+}
+.theme-ivory .kpi-card:hover, .theme-ivory .cap-card:hover {
+  border-color: rgba(30, 33, 36, 0.4);
+}
+/* Dynamic cursor: painted white + blend-mode "difference" → the
+   browser inverts it against whatever it's over. Ink on paper,
+   white inside the dark bands — automatically, no JS. */
+.theme-ivory .cursor-dot {
+  background: #ffffff;
+  mix-blend-mode: difference;
+}
+.theme-ivory .cursor-ring {
+  border-color: rgba(255, 255, 255, 0.55);
+  mix-blend-mode: difference;
+}
+.theme-ivory .cursor-ring.is-hovering { border-color: rgba(255, 255, 255, 0.95); }
+.theme-ivory .tl-marker { box-shadow: 0 0 14px rgba(30, 33, 36, 0.25); }
+
+/* With a mono palette, accented words differentiate by an
+   editorial underline instead of a hue */
+.theme-ivory .contact-title .accent {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 10px;
+}
+
+/* Palantir's light-mode CTA: ink pill, paper text */
+.theme-ivory .btn-primary {
+  background: var(--text);
+  border-color: var(--text);
+  color: #ffffff;
+}
+.theme-ivory .btn-primary:hover {
+  box-shadow: 0 8px 28px rgba(30, 33, 36, 0.25);
+}
+
+/* Ghost words: ink outline at whisper strength */
+.theme-ivory .ghost {
+  -webkit-text-stroke: 1px rgba(30, 33, 36, 0.18);
+  opacity: 0.5;
+}
+
+/* Chart cards sit on white panels — keep their inner canvas white */
+.theme-ivory .kpi-card,
+.theme-ivory .chart-card,
+.theme-ivory .analyst-note {
+  background: #fafaf7; /* one breath off the pure-white dashboard panel */
+}
+
+/* ============================================================
+   3. INK BANDS — Palantir's signature scroll rhythm.
+   Their site alternates paper sections with near-black ones,
+   and product consoles always live inside the dark bands.
+
+   How it works: CSS variables cascade, so redefining the tokens
+   on .band-ink re-themes EVERYTHING inside it — text, cards,
+   hairlines, and (thanks to dashboard.js reading tokens from
+   its nearest scope) the charts too. Zero JS for the colors.
+   ============================================================ */
+.theme-ivory .band-ink {
+  --bg:        #0d0e10;   /* palantir.com's own dark-section color */
+  --surface:   #15171a;
+  --hairline:  #26292e;
+  --text:      #f2f3f5;
+  --text-dim:  #8a8f96;
+  --accent:    #f2f3f5;   /* mono flips: accent = white on ink */
+  --accent-soft: rgba(242, 243, 245, 0.09);
+  --accent-glow: rgba(242, 243, 245, 0.4);
+
+  color: var(--text);
+  border-block: 1px solid #1b1e21; /* crisp seam where paper meets ink */
+
+  /* Ambient texture: the same survey lines the paper sections
+     have, in white at whisper opacity — beneath everything. */
+  background:
+    linear-gradient(rgba(242, 243, 245, 0.03), rgba(242, 243, 245, 0.03)) no-repeat 25% 0 / 1px 100%,
+    linear-gradient(rgba(242, 243, 245, 0.03), rgba(242, 243, 245, 0.03)) no-repeat 50% 0 / 1px 100%,
+    linear-gradient(rgba(242, 243, 245, 0.03), rgba(242, 243, 245, 0.03)) no-repeat 75% 0 / 1px 100%,
+    var(--bg);
+
+  /* anchor for the ambient scanline (::after below).
+     NOTE: no overflow:hidden here — it would break the sticky
+     console-nav inside #work. The scanline's tiny overshoot
+     lands on neighboring sections' opaque/paper backgrounds,
+     where white at 3% is invisible. */
+  position: relative;
+}
+
+/* Ambient scanline — a monitoring sweep drifting down each ink
+   band every ~15s. Ultra-faint, pointer-transparent, CSS-only.
+   (Killed automatically by the reduced-motion rules.) */
+.theme-ivory .band-ink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -8%;
+  height: 60px;
+  background: linear-gradient(to bottom,
+    transparent,
+    rgba(242, 243, 245, 0.028) 70%,
+    rgba(242, 243, 245, 0.06) 99%,
+    rgba(242, 243, 245, 0.14) 100%);
+  pointer-events: none;
+  animation: band-scan 15s linear infinite;
+}
+@keyframes band-scan {
+  from { top: -8%; }
+  to   { top: 108%; }
+}
+
+/* Light-theme corrections above don't apply inside a band —
+   put back the dark-world treatments there. */
+.theme-ivory .band-ink .kpi-card,
+.theme-ivory .band-ink .chart-card,
+.theme-ivory .band-ink .analyst-note {
+  background: #101215;
+}
+.theme-ivory .band-ink .dashboard {
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+}
+.theme-ivory .band-ink .chip.is-active {
+  color: var(--accent);
+  border-color: rgba(242, 243, 245, 0.55);
+  background: var(--accent-soft);
+}
+.theme-ivory .band-ink .dash-badge {
+  color: var(--accent);
+  border-color: rgba(242, 243, 245, 0.4);
+}
+.theme-ivory .band-ink .kpi-card:hover,
+.theme-ivory .band-ink .cap-card:hover {
+  border-color: rgba(242, 243, 245, 0.4);
+}
+.theme-ivory .band-ink .ghost {
+  -webkit-text-stroke: 1px rgba(242, 243, 245, 0.12);
+  opacity: 0.6;
+}
+.theme-ivory .band-ink .tl-marker {
+  box-shadow: 0 0 16px rgba(242, 243, 245, 0.35);
+}
+
+/* ============================================================
+   3b. SIGNAL-ACQUISITION OPENER (replaces the default counter
+   preloader on this variant — driven by js/ivory.js)
+   The overlay is five stacked paper bars; on exit they slide
+   away alternately like redaction strips being pulled.
+   ============================================================ */
+.theme-ivory .preloader { background: transparent; } /* the bars ARE the background */
+
+.pl-bars { position: absolute; inset: 0; }
+.pl-bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 20.5%;             /* slight overlap — no hairline gaps between bars */
+  background: var(--bg);
+}
+.pl-bar:nth-child(1) { top: 0; }
+.pl-bar:nth-child(2) { top: 20%; }
+.pl-bar:nth-child(3) { top: 40%; }
+.pl-bar:nth-child(4) { top: 60%; }
+.pl-bar:nth-child(5) { top: 80%; }
+
+.pl-center { position: relative; text-align: center; }
+.pl-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 34px;
+}
+.pl-line {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.26em;
+  color: var(--text-dim);
+  margin-top: 18px;          /* sits below the rule */
+}
+.pl-rule {
+  width: min(380px, 70vw);
+  height: 1px;
+  background: var(--hairline);
+  margin: 22px auto 0;
+  overflow: hidden;
+}
+.pl-rule span {
+  display: block;
+  height: 100%;
+  background: var(--text);
+  transform: scaleX(0);      /* drawn 0 → 1 by the opener timeline */
+  transform-origin: left;
+}
+.pl-word {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  min-height: 1em;           /* words swap without the layout jumping */
+}
+.pl-rule { margin-top: 26px; }
+
+/* ============================================================
+   4. ADAPTIVE HEADER — the fixed nav flips to light text while
+   it floats over an ink band (class toggled by js/ivory.js)
+   ============================================================ */
+.theme-ivory .site-header { transition: background 0.35s ease, border-color 0.35s ease; }
+.theme-ivory .site-header .nav-logo,
+.theme-ivory .site-header .nav-links a { transition: color 0.35s ease; }
+
+.theme-ivory .site-header.over-ink .nav-logo { color: #f2f3f5; }
+.theme-ivory .site-header.over-ink .nav-links a { color: #8a8f96; }
+.theme-ivory .site-header.over-ink .nav-links a:hover { color: #f2f3f5; }
+/* the Contact pill needs !important to outrank the base
+   `.nav-cta { color: var(--text) !important }` rule — otherwise
+   it stays ink-on-ink and vanishes over dark bands */
+.theme-ivory .site-header.over-ink .nav-cta {
+  color: #f2f3f5 !important;
+  border-color: #3a3f45;
+}
+.theme-ivory .site-header.over-ink .nav-cta:hover { border-color: #f2f3f5; }
+.theme-ivory .site-header.over-ink.is-scrolled {
+  background: rgba(13, 14, 16, 0.8);
+  border-bottom-color: #26292e;
+}

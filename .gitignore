@@ -1,0 +1,7 @@
+# Local-only: old design variants and working files
+archive/
+.claude/
+*.zip
+
+# Private project brief — NEVER publish (contains internal strategy)
+CLAUDE.md
