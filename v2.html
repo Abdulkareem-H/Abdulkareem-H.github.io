@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-ivory">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ================================================================
+       ABDULKAREEM HUSSAIN — PORTFOLIO (the ivory/paper design)
+       ================================================================ -->
+  <title>Abdulkareem Hussain — Decision Intelligence</title>
+  <meta name="description" content="Analyst across data, business, and AI — data modeling, business analysis, and AI-augmented tools that turn complexity into decisions.">
+
+  <!-- Social sharing (Open Graph + Twitter) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://abdulkareem-h.github.io/">
+  <meta property="og:title" content="Abdulkareem Hussain — Decision Intelligence">
+  <meta property="og:description" content="Data, business, and AI — interactive dashboards, purpose-built apps, and the analyst behind them.">
+  <meta property="og:site_name" content="Abdulkareem Hussain">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Abdulkareem Hussain — Decision Intelligence">
+  <meta name="twitter:description" content="Data, business, and AI — interactive dashboards, purpose-built apps, and the analyst behind them.">
+  <meta name="theme-color" content="#f3f2ee">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='6' fill='%23f3f2ee'/%3E%3Crect x='22' y='52' width='14' height='26' fill='%231e2124'/%3E%3Crect x='43' y='36' width='14' height='42' fill='%231e2124' opacity='0.7'/%3E%3Crect x='64' y='22' width='14' height='56' fill='%231e2124' opacity='0.45'/%3E%3C/svg%3E">
+
+  <!-- ============ FONTS ============ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Inter Tight = closest clean stand-in for Palantir's Alliance No.1 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Base design system, then the ivory (light) token overrides -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/ivory.css">
+
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- Blueprint grid — faint ink survey lines over the paper -->
+  <div class="blueprint-grid" aria-hidden="true"></div>
+
+  <!-- ==================================================================
+       WORD-CYCLE OPENER (custom — replaces the default counter
+       preloader). The display word flickers through the craft —
+       DATA → MODELS → DASHBOARDS → DECISIONS — and settles on
+       INTELLIGENCE while a hairline rule draws beneath; then five
+       "redaction bars" slide away to reveal the hero. Driven by
+       js/ivory.js; scroll-lock + failsafes stay in js/effects.js
+       via data-custom.
+       ================================================================== -->
+  <div class="preloader" id="preloader" data-custom aria-hidden="true">
+    <div class="pl-bars" aria-hidden="true">
+      <span class="pl-bar"></span>
+      <span class="pl-bar"></span>
+      <span class="pl-bar"></span>
+      <span class="pl-bar"></span>
+      <span class="pl-bar"></span>
+    </div>
+    <div class="pl-center">
+      <p class="pl-name">Abdulkareem Hussain</p>
+      <p class="pl-word" id="pl-word">DATA</p>
+      <div class="pl-rule"><span id="pl-rule"></span></div>
+      <p class="pl-line">// LOADING PORTFOLIO</p>
+    </div>
+  </div>
+
+  <!-- Scroll progress hairline -->
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ==================================================================
+       HEADER / NAV
+       ================================================================== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav container">
+      <a href="#hero" class="nav-logo">AH<span class="accent">.</span></a>
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#apps">Apps</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#qualifications">Credentials</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact" class="nav-cta magnetic">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ==================================================================
+         01 · HERO
+         ================================================================== -->
+    <section class="hero" id="hero">
+      <!-- data-hero-mode="net" → drifting node network (hero.js) -->
+      <canvas id="hero-canvas" data-hero-mode="net" aria-hidden="true"></canvas>
+
+      <div class="hud-frame" aria-hidden="true">
+        <span class="hud-corner hud-tl"></span>
+        <span class="hud-corner hud-tr"></span>
+        <span class="hud-corner hud-bl"></span>
+        <span class="hud-corner hud-br"></span>
+        <div class="hud-status container">
+          <span><span class="radar"></span>&nbsp; <span data-scramble>SIGNAL // ACTIVE</span></span>
+          <span class="hud-clock">--:--:-- UTC</span>
+        </div>
+      </div>
+
+      <div class="hero-content container">
+        <p class="eyebrow hero-eyebrow">// DECISION INTELLIGENCE</p>
+        <h1 class="hero-title" id="hero-title">Abdulkareem<br>Hussain</h1>
+        <p class="hero-tagline">
+          Data, business, and AI — I find the story in the numbers,
+          the levers in the operation, and <em>build</em> the
+          intelligent tools that connect them.
+        </p>
+        <div class="hero-cta">
+          <a href="#work" class="btn btn-primary magnetic">View the work&nbsp;&nbsp;→</a>
+          <a href="#contact" class="btn btn-ghost magnetic">Get in touch&nbsp;&nbsp;→</a>
+        </div>
+        <p class="hero-meta" data-scramble>CURRENTLY // TRADE MARKETING &amp; DISTRIBUTION ANALYST — BAT · SAUDI ARABIA</p>
+        <p class="hero-meta hero-meta-2" data-scramble>NATIONALITY // SAUDI NATIONAL</p>
+      </div>
+
+      <div class="hero-scroll-cue" aria-hidden="true">
+        <span class="cue-label">SCROLL</span>
+        <span class="cue-line"></span>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         02 · PROOF BAR — placeholder values
+         ================================================================== -->
+    <section class="proof-bar" id="proof">
+      <!-- VALUES ARE PLACEHOLDERS — owner supplies real numbers.
+           Rule: never inflate; reframe so honest numbers read strong. -->
+      <div class="container proof-grid">
+        <div class="stat reveal">
+          <p class="stat-value"><span data-count="30" data-suffix="+">0</span></p>
+          <p class="stat-label">Dashboards delivered</p>
+        </div>
+        <div class="stat reveal" data-delay="0.1">
+          <p class="stat-value"><span data-count="120" data-suffix="+">0</span></p>
+          <p class="stat-label">KPIs tracked daily</p>
+        </div>
+        <div class="stat reveal" data-delay="0.2">
+          <p class="stat-value"><span data-count="15" data-suffix="+">0</span></p>
+          <p class="stat-label">Hours saved weekly by AI workflows</p>
+        </div>
+        <div class="stat reveal" data-delay="0.3">
+          <p class="stat-value"><span data-count="2" data-suffix="">0</span></p>
+          <p class="stat-label">Sectors — Big Four consulting &amp; FMCG</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Double marquee — two rows running opposite directions -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>POWER BI — DAX — SQL — DATA MODELING — GSAP — THREE.JS — AI WORKFLOWS — DESIGN SYSTEMS — VARIANCE ANALYSIS —&nbsp;</span>
+        <span>POWER BI — DAX — SQL — DATA MODELING — GSAP — THREE.JS — AI WORKFLOWS — DESIGN SYSTEMS — VARIANCE ANALYSIS —&nbsp;</span>
+      </div>
+    </div>
+    <div class="marquee marquee-rev" aria-hidden="true">
+      <div class="marquee-track">
+        <span>TRADE ANALYTICS — DISTRIBUTION — COVERAGE — STRIKE RATE — CHANNEL MIX — FORECASTING — EXECUTIVE REPORTING —&nbsp;</span>
+        <span>TRADE ANALYTICS — DISTRIBUTION — COVERAGE — STRIKE RATE — CHANNEL MIX — FORECASTING — EXECUTIVE REPORTING —&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ==================================================================
+         03 · WORK — Dashboard Showcase 01 (SYNTHETIC DATA ONLY)
+         ================================================================== -->
+    <!-- INK BAND — the dashboard console lives in a dark section,
+         exactly like product consoles on palantir.com -->
+    <section class="work section band-ink" id="work">
+      <div class="container">
+        <div class="section-head">
+          <span class="ghost" aria-hidden="true">WORK</span>
+          <div class="section-rail reveal">
+            <span class="rail-label" data-scramble>// 003 · SELECTED WORK</span>
+            <span class="rail-meta" data-scramble>GRID 03.A — SYNTHETIC DATASET</span>
+          </div>
+          <h2 class="section-title split-title">Dashboards that think<br>like an analyst.</h2>
+          <p class="section-sub reveal" data-delay="0.15">
+            Five interactive showcases, rebuilt in the browser with synthetic
+            data — each one solving a different analytical job.
+          </p>
+        </div>
+
+        <!-- ==========================================================
+             SHOWCASE CONSOLE — all five dashboards live here.
+             Tabs switch the active .sc-block; the section's band
+             (paper/ink) morphs to match (js/work-console.js).
+             ========================================================== -->
+        <div class="console-nav reveal" role="tablist" aria-label="Dashboard showcases">
+          <button class="console-tab is-active" role="tab" aria-selected="true" data-index="0">01 · COMMAND</button>
+          <button class="console-tab" role="tab" aria-selected="false" data-index="1">02 · TREND</button>
+          <button class="console-tab" role="tab" aria-selected="false" data-index="2">03 · SCENARIO</button>
+          <button class="console-tab" role="tab" aria-selected="false" data-index="3">04 · BRIDGE</button>
+          <button class="console-tab" role="tab" aria-selected="false" data-index="4">05 · BRANDS</button>
+          <span class="console-spacer"></span>
+          <button class="console-arrow" id="console-prev" aria-label="Previous dashboard">←</button>
+          <button class="console-arrow" id="console-next" aria-label="Next dashboard">→</button>
+        </div>
+
+        <!-- ————— SHOWCASE 01 : Performance Command ————— -->
+        <div class="sc-block" data-band="ink">
+        <div class="sc-head">
+          <div class="section-rail reveal">
+            <span class="rail-label" data-scramble>// SHOWCASE 01 · PERFORMANCE COMMAND</span>
+            <span class="rail-meta" data-scramble>OBJECTIVE // MONITOR THE BUSINESS</span>
+          </div>
+          <h3 class="sc-title split-title">The daily command center.</h3>
+          <p class="section-sub reveal" data-delay="0.1">
+            Regional performance at a glance — variance vs last year, target
+            tracking, and an insight engine that rewrites the executive
+            summary for every filter you touch.
+          </p>
+        </div>
+
+        <div class="dash-stage">
+          <!-- The scan beam that sweeps the frame on entry -->
+          <div class="scan-sweep" aria-hidden="true"></div>
+
+          <article class="dashboard" id="dashboard-01">
+
+            <div class="dash-titlebar">
+              <div class="dash-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <p class="dash-title" data-scramble>TRADE PERFORMANCE — NATIONAL OVERVIEW</p>
+              <p class="dash-badge">SYNTHETIC DATA</p>
+            </div>
+
+            <div class="dash-body">
+
+              <div class="dash-toolbar">
+                <p class="toolbar-label">REGION</p>
+                <div class="chip-row" id="region-chips" role="group" aria-label="Filter dashboard by region">
+                  <button class="chip is-active" data-region="All" aria-pressed="true">All</button>
+                  <button class="chip" data-region="Central" aria-pressed="false">Central</button>
+                  <button class="chip" data-region="Western" aria-pressed="false">Western</button>
+                  <button class="chip" data-region="Eastern" aria-pressed="false">Eastern</button>
+                  <button class="chip" data-region="Southern" aria-pressed="false">Southern</button>
+                </div>
+              </div>
+
+              <div class="kpi-grid">
+                <article class="kpi-card" data-kpi="volume">
+                  <p class="kpi-label">VOLUME</p>
+                  <p class="kpi-value">—</p>
+                  <p class="kpi-delta">—</p>
+                </article>
+                <article class="kpi-card" data-kpi="revenue">
+                  <p class="kpi-label">NET REVENUE</p>
+                  <p class="kpi-value">—</p>
+                  <p class="kpi-delta">—</p>
+                </article>
+                <article class="kpi-card" data-kpi="dist">
+                  <p class="kpi-label">NUMERIC DISTRIBUTION</p>
+                  <p class="kpi-value">—</p>
+                  <p class="kpi-delta">—</p>
+                </article>
+                <article class="kpi-card" data-kpi="strike">
+                  <p class="kpi-label">STRIKE RATE</p>
+                  <p class="kpi-value">—</p>
+                  <p class="kpi-delta">—</p>
+                </article>
+              </div>
+
+              <div class="chart-grid">
+                <div class="chart-card chart-card-wide">
+                  <p class="chart-title">VOLUME VS TARGET — TRAILING 12 MONTHS</p>
+                  <div class="chart-box"><canvas id="chart-trend"></canvas></div>
+                </div>
+                <div class="chart-card">
+                  <p class="chart-title">REVENUE BY CHANNEL — SAR M</p>
+                  <div class="chart-box"><canvas id="chart-channel"></canvas></div>
+                </div>
+              </div>
+
+              <div class="analyst-note">
+                <p class="note-label">ANALYST NOTE</p>
+                <p class="note-text" id="analyst-note">—</p>
+              </div>
+
+            </div>
+          </article>
+        </div>
+
+        <div class="dash-caption reveal">
+          <div class="caption-tags">
+            <span class="tag">Chart.js</span>
+            <span class="tag">Synthetic data engine</span>
+            <span class="tag">Variance analysis</span>
+            <span class="tag">Interactive slicers</span>
+          </div>
+          <!-- PLACEHOLDER COPY -->
+          <p class="caption-text">
+            A trade-analytics dashboard rebuilt from scratch for the web —
+            KPI variance vs last year, target tracking, channel mix, and an
+            insight engine that rewrites the executive summary for every filter.
+          </p>
+        </div>
+
+        </div><!-- /sc-block 01 -->
+
+        <!-- ————— SHOWCASE 02 : This Year vs Last Year (paper) ————— -->
+        <div class="sc-block" data-band="paper" hidden>
+        <div class="sc-head">
+          <div class="section-rail reveal">
+            <span class="rail-label" data-scramble>// SHOWCASE 02 · YEAR VS YEAR</span>
+            <span class="rail-meta" data-scramble>OBJECTIVE // ONE LOOK, ONE ANSWER</span>
+          </div>
+          <h3 class="sc-title split-title">Are we ahead —<br>or behind?</h3>
+          <p class="section-sub reveal" data-delay="0.1">
+            The whole year in one picture: this year's sales on top of last
+            year's, month by month — and one sentence, written from the
+            numbers, that says what it means.
+          </p>
+        </div>
+
+        <div class="dash-stage">
+          <div class="scan-sweep" aria-hidden="true"></div>
+          <article class="dashboard" id="dashboard-02">
+            <div class="dash-titlebar">
+              <div class="dash-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <p class="dash-title" data-scramble>SALES — THIS YEAR VS LAST YEAR</p>
+              <p class="dash-badge">SYNTHETIC DATA</p>
+            </div>
+            <div class="dash-body">
+              <div class="brg-chart-card">
+                <p class="chart-title">MONTHLY SALES — SAR M</p>
+                <div class="chart-box-tall"><canvas id="chart-yoy"></canvas></div>
+              </div>
+              <div class="brg-takeaway">
+                <p class="brief-label">THE ANSWER</p>
+                <p id="yoy-answer">—</p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="dash-caption reveal">
+          <div class="caption-tags">
+            <span class="tag">One chart</span>
+            <span class="tag">One answer</span>
+            <span class="tag">Auto-written takeaway</span>
+          </div>
+          <p class="caption-text">
+            The first question every leader asks — are we ahead or behind?
+            — answered in the first second, with the sentence underneath
+            written from the numbers, not by a person.
+          </p>
+        </div>
+        </div><!-- /sc-block 02 -->
+
+        <!-- ————— SHOWCASE 03 : Scenario Studio (ink) ————— -->
+        <div class="sc-block" data-band="ink" hidden>
+        <div class="sc-head">
+          <div class="section-rail reveal">
+            <span class="rail-label" data-scramble>// SHOWCASE 03 · SCENARIO STUDIO</span>
+            <span class="rail-meta" data-scramble>OBJECTIVE // SIMULATE THE PLAN</span>
+          </div>
+          <h3 class="sc-title split-title">What happens<br>if we push?</h3>
+          <p class="section-sub reveal" data-delay="0.1">
+            A what-if simulator with three levers. Move them and watch the
+            12-month forecast, revenue, and margin re-plan themselves in
+            real time — elasticity included.
+          </p>
+        </div>
+
+        <div class="dash-stage">
+          <div class="scan-sweep" aria-hidden="true"></div>
+          <article class="dashboard" id="dashboard-03">
+            <div class="dash-titlebar">
+              <div class="dash-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <p class="dash-title" data-scramble>SCENARIO STUDIO — 12-MONTH WHAT-IF</p>
+              <p class="dash-badge">SYNTHETIC DATA</p>
+            </div>
+            <div class="dash-body">
+              <div class="scn-layout">
+                <div class="scn-controls">
+                  <div class="scn-lever">
+                    <div class="scn-lever-head">
+                      <label for="lev-dist">DISTRIBUTION PUSH</label>
+                      <output id="lev-dist-out">+0 pts</output>
+                    </div>
+                    <input type="range" id="lev-dist" class="hud-range" min="0" max="15" value="0">
+                  </div>
+                  <div class="scn-lever">
+                    <div class="scn-lever-head">
+                      <label for="lev-price">PRICE INDEX</label>
+                      <output id="lev-price-out">100</output>
+                    </div>
+                    <input type="range" id="lev-price" class="hud-range" min="95" max="110" value="100">
+                  </div>
+                  <div class="scn-lever">
+                    <div class="scn-lever-head">
+                      <label for="lev-promo">PROMO WEEKS</label>
+                      <output id="lev-promo-out">0</output>
+                    </div>
+                    <input type="range" id="lev-promo" class="hud-range" min="0" max="12" value="0">
+                  </div>
+                  <button class="scn-reset" id="scn-reset">RESET LEVERS</button>
+                </div>
+                <div class="scn-chart-card">
+                  <p class="chart-title">REVENUE FORECAST — NEXT 12 MONTHS, SAR M</p>
+                  <div class="chart-box"><canvas id="chart-scenario"></canvas></div>
+                </div>
+              </div>
+              <div class="scn-deltas">
+                <article class="kpi-card" data-kpi="dvol">
+                  <p class="kpi-label">Δ VOLUME</p>
+                  <p class="kpi-value" id="scn-dvol">±0.0%</p>
+                  <p class="kpi-delta">vs base plan</p>
+                </article>
+                <article class="kpi-card" data-kpi="drev">
+                  <p class="kpi-label">Δ REVENUE — 12M</p>
+                  <p class="kpi-value" id="scn-drev">SAR +0M</p>
+                  <p class="kpi-delta">vs base plan</p>
+                </article>
+                <article class="kpi-card" data-kpi="dmargin">
+                  <p class="kpi-label">MARGIN IMPACT</p>
+                  <p class="kpi-value" id="scn-dmargin">+0.0 pts</p>
+                  <p class="kpi-delta">gross margin</p>
+                </article>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="dash-caption reveal">
+          <div class="caption-tags">
+            <span class="tag">What-if levers</span>
+            <span class="tag">Live forecast</span>
+            <span class="tag">Price elasticity</span>
+            <span class="tag">Delta KPIs</span>
+          </div>
+          <p class="caption-text">
+            Planning conversations go in circles until someone can show the
+            trade-off. This is that tool — the cost of a price move, the
+            payoff of a distribution push, recalculated as you drag.
+          </p>
+        </div>
+        </div><!-- /sc-block 03 -->
+
+        <!-- ————— SHOWCASE 04 : Variance Bridge (paper) ————— -->
+        <div class="sc-block" data-band="paper" hidden>
+        <div class="sc-head">
+          <div class="section-rail reveal">
+            <span class="rail-label" data-scramble>// SHOWCASE 04 · VARIANCE BRIDGE</span>
+            <span class="rail-meta" data-scramble>OBJECTIVE // EXPLAIN THE NUMBER</span>
+          </div>
+          <h3 class="sc-title split-title">Why the quarter landed<br>where it landed.</h3>
+          <p class="section-sub reveal" data-delay="0.1">
+            A budget-to-actual waterfall that decomposes the variance into
+            its drivers — and writes the one-line story leadership actually
+            reads. Switch quarters to watch the narrative change.
+          </p>
+        </div>
+
+        <div class="dash-stage">
+          <div class="scan-sweep" aria-hidden="true"></div>
+          <article class="dashboard" id="dashboard-04">
+            <div class="dash-titlebar">
+              <div class="dash-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <p class="dash-title" data-scramble>P&amp;L VARIANCE BRIDGE — BUDGET → ACTUAL</p>
+              <p class="dash-badge">SYNTHETIC DATA</p>
+            </div>
+            <div class="dash-body">
+              <div class="brg-toolbar">
+                <div class="chip-row" id="quarter-chips" role="group" aria-label="Select quarter">
+                  <button class="chip is-active" data-quarter="Q1" aria-pressed="true">Q1</button>
+                  <button class="chip" data-quarter="Q2" aria-pressed="false">Q2</button>
+                  <button class="chip" data-quarter="Q3" aria-pressed="false">Q3</button>
+                  <button class="chip" data-quarter="Q4" aria-pressed="false">Q4</button>
+                </div>
+                <p class="sig-status">REVENUE, SAR M</p>
+              </div>
+              <div class="brg-chart-card">
+                <div class="chart-box-tall"><canvas id="chart-bridge"></canvas></div>
+              </div>
+              <div class="brg-takeaway">
+                <p class="brief-label">THE STORY</p>
+                <p id="brg-takeaway-text">—</p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="dash-caption reveal">
+          <div class="caption-tags">
+            <span class="tag">Waterfall bridge</span>
+            <span class="tag">Driver decomposition</span>
+            <span class="tag">Quarterly slicer</span>
+            <span class="tag">Auto-narrative</span>
+          </div>
+          <p class="caption-text">
+            Finance storytelling from the consulting playbook: don't show the
+            variance, explain it — volume, price, mix, and FX, each carrying
+            its share of the story.
+          </p>
+        </div>
+        </div><!-- /sc-block 04 -->
+
+        <!-- ————— SHOWCASE 05 : Signal Scanner (ink) ————— -->
+        <div class="sc-block" data-band="ink" hidden>
+        <div class="sc-head">
+          <div class="section-rail reveal">
+            <span class="rail-label" data-scramble>// SHOWCASE 05 · BRAND PERFORMANCE</span>
+            <span class="rail-meta" data-scramble>OBJECTIVE // THE BRAND, AT A GLANCE</span>
+          </div>
+          <h3 class="sc-title split-title">How each brand<br>is really doing.</h3>
+          <p class="section-sub reveal" data-delay="0.1">
+            Pick a brand: its sales, its growth, and where it lands by
+            year-end on the current pace — with every product under it
+            ranked from hero to problem child.
+          </p>
+        </div>
+
+        <div class="dash-stage">
+          <div class="scan-sweep" aria-hidden="true"></div>
+          <article class="dashboard" id="dashboard-05">
+            <div class="dash-titlebar">
+              <div class="dash-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <p class="dash-title" data-scramble>BRAND PERFORMANCE — YTD &amp; YEAR-END ESTIMATE</p>
+              <p class="dash-badge">SYNTHETIC DATA</p>
+            </div>
+            <div class="dash-body">
+              <div class="dash-toolbar">
+                <p class="toolbar-label">BRAND</p>
+                <div class="chip-row" id="bp-brands" role="group" aria-label="Choose brand">
+                  <button class="chip is-active" data-brand="0" aria-pressed="true">Brand 1</button>
+                  <button class="chip" data-brand="1" aria-pressed="false">Brand 2</button>
+                  <button class="chip" data-brand="2" aria-pressed="false">Brand 3</button>
+                </div>
+                <p class="sig-status">YTD THROUGH AUGUST · ESTIMATE = CURRENT PACE</p>
+              </div>
+              <div class="kpi-grid cols-3">
+                <article class="kpi-card">
+                  <p class="kpi-label">SALES SO FAR</p>
+                  <p class="kpi-value" id="bp-sales">—</p>
+                  <p class="kpi-delta">year to date</p>
+                </article>
+                <article class="kpi-card">
+                  <p class="kpi-label">VS LAST YEAR</p>
+                  <p class="kpi-value" id="bp-vsly">—</p>
+                  <p class="kpi-delta">same period</p>
+                </article>
+                <article class="kpi-card">
+                  <p class="kpi-label">YEAR-END ESTIMATE</p>
+                  <p class="kpi-value" id="bp-est">—</p>
+                  <p class="kpi-delta">on current pace</p>
+                </article>
+              </div>
+              <!-- product ranking injected by js/dash05-brand.js -->
+              <div class="bp-list" id="bp-list"></div>
+              <div class="brg-takeaway">
+                <p class="brief-label">THE READ</p>
+                <p id="bp-takeaway">—</p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="dash-caption reveal">
+          <div class="caption-tags">
+            <span class="tag">Brand slicer</span>
+            <span class="tag">Product ranking</span>
+            <span class="tag">Year-end estimate</span>
+            <span class="tag">Auto-written read</span>
+          </div>
+          <p class="caption-text">
+            One brand at a time: the headline numbers, where it lands by
+            December, and which products are carrying it or dragging it —
+            with the takeaway written from the data.
+          </p>
+        </div>
+        </div><!-- /sc-block 05 -->
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         004 · APPS & AUTOMATION — the work that does the work.
+         A simulated terminal run of the daily-sales-report app +
+         the fleet of purpose-built tools. Outcomes only — how
+         they're built is never described (HARD RULE).
+         ================================================================== -->
+    <section class="apps section band-ink" id="apps">
+      <div class="container">
+        <div class="section-head">
+          <span class="ghost" aria-hidden="true">BUILD</span>
+          <div class="section-rail reveal">
+            <span class="rail-label" data-scramble>// 004 · APPS &amp; AUTOMATION</span>
+            <span class="rail-meta" data-scramble>OBJECTIVE // KILL THE MANUAL WORK</span>
+          </div>
+          <h2 class="section-title split-title">Reports that<br>build themselves.</h2>
+          <p class="section-sub reveal" data-delay="0.15">
+            Dashboards show the numbers — these apps do the work. Purpose-built
+            programs that take a process people grind through by hand and
+            finish it in minutes, the same way every time.
+          </p>
+        </div>
+
+        <!-- ————— LIVE DEMO : daily sales report app (simulated) ————— -->
+        <div class="dash-stage">
+          <div class="scan-sweep" aria-hidden="true"></div>
+          <article class="dashboard" id="app-demo">
+            <div class="dash-titlebar">
+              <div class="dash-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <p class="dash-title" id="app-title" data-scramble>DAILY-SALES-REPORT — APP</p>
+              <p class="dash-badge">SIMULATED RUN</p>
+            </div>
+            <div class="dash-body">
+
+              <!-- App switcher: three tools, one window -->
+              <div class="app-tabs" role="tablist" aria-label="Choose app">
+                <button class="app-tab is-active" role="tab" aria-selected="true" data-app="report">DAILY SALES REPORT</button>
+                <button class="app-tab" role="tab" aria-selected="false" data-app="rtm">RTM PERFORMANCE</button>
+                <button class="app-tab" role="tab" aria-selected="false" data-app="sku">SKU &amp; BRAND REPORT</button>
+              </div>
+
+              <!-- ————— APP 1 : Daily Sales Report Builder ————— -->
+              <div class="app-pane" id="pane-report">
+                <div class="app-controls">
+                  <p class="toolbar-label">SCOPE</p>
+                  <div class="chip-row" id="report-scope" role="group" aria-label="Report scope">
+                    <button class="chip is-active" data-scope="National" aria-pressed="true">National</button>
+                    <button class="chip" data-scope="Central" aria-pressed="false">Central</button>
+                    <button class="chip" data-scope="Western" aria-pressed="false">Western</button>
+                    <button class="chip" data-scope="Eastern" aria-pressed="false">Eastern</button>
+                  </div>
+                  <button class="sig-run" id="report-generate">GENERATE REPORT</button>
+                  <p class="sig-status" id="report-status">READY</p>
+                </div>
+                <div class="app-body">
+                  <div class="app-log-card">
+                    <div class="app-log" id="app-log" aria-live="polite"></div>
+                  </div>
+                  <div class="report-out" id="report-out">
+                    <p class="report-empty">— REPORT OUTPUT —<br>generate to see today's report land here</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ————— APP 2 : RTM Performance ————— -->
+              <div class="app-pane" id="pane-rtm" hidden>
+                <div class="app-controls">
+                  <button class="sig-run" id="rtm-run">ANALYZE ROUTES</button>
+                  <p class="toolbar-label">RANK BY</p>
+                  <div class="chip-row" id="rtm-sort" role="group" aria-label="Rank routes by">
+                    <button class="chip is-active" data-sort="score" aria-pressed="true">Score</button>
+                    <button class="chip" data-sort="strike" aria-pressed="false">Success rate</button>
+                    <button class="chip" data-sort="drop" aria-pressed="false">Avg order</button>
+                  </div>
+                  <p class="sig-status" id="rtm-status">IDLE — 10 ROUTES TRACKED</p>
+                </div>
+                <div class="app-body">
+                  <div class="app-log-card">
+                    <div class="app-log" id="rtm-log" aria-live="polite"></div>
+                  </div>
+                  <div class="report-out" id="rtm-out">
+                    <p class="report-empty">— ROUTE LEAGUE TABLE —<br>analyze to score every route on the street</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ————— APP 3 : SKU & Brand Report ————— -->
+              <div class="app-pane" id="pane-sku" hidden>
+                <div class="app-controls">
+                  <button class="sig-run" id="sku-run">COMPILE REPORT</button>
+                  <p class="toolbar-label">VIEW</p>
+                  <div class="chip-row" id="sku-view" role="group" aria-label="Report view">
+                    <button class="chip is-active" data-view="brand" aria-pressed="true">By brand</button>
+                    <button class="chip" data-view="sku" aria-pressed="false">By SKU</button>
+                  </div>
+                  <p class="sig-status" id="sku-status">IDLE — 214 SKUS · 6 BRANDS</p>
+                </div>
+                <div class="app-body">
+                  <div class="app-log-card">
+                    <div class="app-log" id="sku-log" aria-live="polite"></div>
+                  </div>
+                  <div class="report-out" id="sku-out">
+                    <p class="report-empty">— PORTFOLIO REPORT —<br>compile to see brand &amp; SKU performance</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </article>
+        </div>
+
+        <!-- The economics, as a strip -->
+        <div class="app-strip reveal" aria-label="Impact summary">
+          <span data-scramble>MANUAL ~4 HRS → APP ~15 MIN</span>
+          <span data-scramble>0 FORMULAS TOUCHED</span>
+          <span data-scramble>SAME QUALITY · EVERY RUN</span>
+        </div>
+
+        <!-- ————— THE FLEET : more purpose-built tools ————— -->
+        <div class="apps-grid">
+          <article class="app-card reveal">
+            <p class="cap-num">A·01</p>
+            <h3 class="cap-title">Daily Sales Report Builder</h3>
+            <p class="cap-text">Feed it the raw exports — it cleans, reconciles, and returns the finished daily report, formatted and ready to send.</p>
+            <p class="app-impact" data-scramble>IMPACT // 4 HRS → 15 MIN, EVERY DAY</p>
+            <p class="cap-tags">PYTHON · DATA PIPELINE · EXCEL OUT</p>
+          </article>
+          <article class="app-card reveal" data-delay="0.08">
+            <p class="cap-num">A·02</p>
+            <h3 class="cap-title">RTM Performance Analyzer</h3>
+            <p class="cap-text">Scores every sales route on visits, success rate, and order size — then ranks who's winning the street and who needs help.</p>
+            <p class="app-impact" data-scramble>IMPACT // EVERY ROUTE SCORED, WEAK LINKS VISIBLE</p>
+            <p class="cap-tags">PYTHON · ROUTE ANALYTICS · LEAGUE TABLE</p>
+          </article>
+          <article class="app-card reveal" data-delay="0.16">
+            <p class="cap-num">A·03</p>
+            <h3 class="cap-title">SKU &amp; Brand Compiler</h3>
+            <p class="cap-text">Compiles raw sales into brand and SKU league tables — share, growth, rank moves, and the tail that needs pruning.</p>
+            <p class="app-impact" data-scramble>IMPACT // 214 SKUS → ONE PAGE THAT MATTERS</p>
+            <p class="cap-tags">PYTHON · PORTFOLIO · SHARE ANALYSIS</p>
+          </article>
+        </div>
+
+        <div class="dash-caption reveal">
+          <p class="caption-text">
+            What they deliver is the point. How they're built is the craft.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         005 · CAPABILITIES — border-draw cards in this variant
+         ================================================================== -->
+    <section class="capabilities section" id="capabilities">
+      <div class="container">
+        <div class="section-head">
+          <span class="ghost" aria-hidden="true">SKILLS</span>
+          <div class="section-rail reveal">
+            <span class="rail-label" data-scramble>// 005 · CAPABILITIES</span>
+            <span class="rail-meta" data-scramble>GRID 05.A — FIVE DISCIPLINES</span>
+          </div>
+          <h2 class="section-title split-title">One profile,<br>five disciplines.</h2>
+        </div>
+
+        <div class="cap-grid">
+          <article class="cap-card reveal">
+            <p class="cap-num">01</p>
+            <h3 class="cap-title">Data Modeling &amp; Analysis</h3>
+            <p class="cap-text">Star schemas, 50+ DAX measures per model, and performance-tuned Power BI datasets built for scale.</p>
+            <p class="cap-tags">POWER BI · DAX · SQL</p>
+          </article>
+          <article class="cap-card reveal" data-delay="0.08">
+            <p class="cap-num">02</p>
+            <h3 class="cap-title">Business Analysis</h3>
+            <p class="cap-text">Reading the operation behind the numbers — variance, coverage, pricing and promo economics, and the levers that actually move them.</p>
+            <p class="cap-tags">COMMERCIAL LEVERS · VARIANCE · FORECASTING</p>
+          </article>
+          <article class="cap-card reveal" data-delay="0.16">
+            <p class="cap-num">03</p>
+            <h3 class="cap-title">AI Workflows</h3>
+            <p class="cap-text">Intelligent automation that compresses hours of reporting into minutes — raw data in, finished output out, end to end.</p>
+            <p class="cap-tags">AUTOMATION · PIPELINES · PYTHON</p>
+          </article>
+          <article class="cap-card reveal" data-delay="0.24">
+            <p class="cap-num">04</p>
+            <h3 class="cap-title">Front-End Build</h3>
+            <p class="cap-text">Design systems, animation, and interactive data experiences — this site is the live demo.</p>
+            <p class="cap-tags">HTML · CSS · JS · GSAP · THREE.JS</p>
+          </article>
+          <!-- The capstone: full-width, because it's the discipline
+               that makes the other four land in a boardroom -->
+          <article class="cap-card cap-card-wide reveal" data-delay="0.3">
+            <p class="cap-num">05</p>
+            <h3 class="cap-title">Executive Communication</h3>
+            <p class="cap-text">The discipline that ties the other four together — Partner-commended storytelling that turns models, analysis, and automation into decisions leadership can act on in one read.</p>
+            <p class="cap-tags">STORYTELLING · VARIANCE NARRATIVES · REPORTING</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         006 · QUALIFICATIONS — certifications logo wall (paper).
+         Real list confirmed by owner 2026-07. All display as earned
+         (site ships late Nov 2026, after completion).
+         Row 1: flagships · Row 2: AI cluster · Row 3: business & delivery
+         ================================================================== -->
+    <section class="qualifications section" id="qualifications">
+      <div class="container">
+        <div class="section-head">
+          <span class="ghost" aria-hidden="true">PROOF</span>
+          <div class="section-rail reveal">
+            <span class="rail-label" data-scramble>// 006 · QUALIFICATIONS</span>
+            <span class="rail-meta" data-scramble>GRID 06.A — 12 CREDENTIALS · 2025–26</span>
+          </div>
+          <h2 class="section-title split-title">Credentials from the<br>names that set the bar.</h2>
+          <p class="section-sub reveal" data-delay="0.15">
+            Twelve certifications across AI, analytics, and business
+            practice — Harvard, Wharton, McKinsey, Microsoft, Google,
+            Palantir, NVIDIA, IBM, and KPMG.
+          </p>
+        </div>
+
+        <div class="cert-grid">
+
+          <!-- ——— row 1 · flagships ——— -->
+          <article class="cert-card reveal">
+            <div class="cert-fx fx-harvard" aria-hidden="true">
+              <img src="assets/logos/harvard.svg" alt="" loading="lazy">
+            </div>
+            <div class="cert-logo" aria-hidden="true">
+              <span class="cert-wordmark cert-wordmark-serif">Harvard</span>
+            </div>
+            <p class="cert-name">Business Analytics Program</p>
+            <p class="cert-code">HARVARD BUSINESS ANALYTICS</p>
+            <p class="cert-status"><span class="cert-check">✓</span> <span data-scramble>VERIFIED · 2025</span></p>
+          </article>
+
+          <article class="cert-card reveal" data-delay="0.08">
+            <div class="cert-fx fx-mckinsey" aria-hidden="true">
+              <span class="fx-mck">McKinsey &amp; Company</span>
+            </div>
+            <div class="cert-logo" aria-hidden="true">
+              <span class="cert-wordmark cert-wordmark-serif">McKinsey &amp; Company</span>
+            </div>
+            <p class="cert-name">Forward Program</p>
+            <p class="cert-code">MCKINSEY.ORG</p>
+            <p class="cert-status"><span class="cert-check">✓</span> <span data-scramble>VERIFIED · 2026</span></p>
+          </article>
+
+          <article class="cert-card reveal" data-delay="0.16">
+            <div class="cert-fx fx-microsoft" aria-hidden="true">
+              <!-- official Microsoft squares, inlined so each square animates -->
+              <svg viewBox="0 0 23 23"><path fill="#f35325" d="M1 1h10v10H1z"/><path fill="#81bc06" d="M12 1h10v10H12z"/><path fill="#05a6f0" d="M1 12h10v10H1z"/><path fill="#ffba08" d="M12 12h10v10H12z"/></svg>
+            </div>
+            <div class="cert-logo" aria-hidden="true">
+              <svg class="ms-squares" viewBox="0 0 21 21" width="18" height="18"><rect x="0" y="0" width="10" height="10"/><rect x="11" y="0" width="10" height="10" opacity="0.75"/><rect x="0" y="11" width="10" height="10" opacity="0.75"/><rect x="11" y="11" width="10" height="10" opacity="0.5"/></svg>
+              <span class="cert-wordmark">Microsoft</span>
+            </div>
+            <p class="cert-name">Power BI Data Analyst</p>
+            <p class="cert-code">MICROSOFT CERTIFICATION</p>
+            <p class="cert-status"><span class="cert-check">✓</span> <span data-scramble>VERIFIED · 2025</span></p>
+          </article>
+
+          <article class="cert-card reveal" data-delay="0.24">
+            <div class="cert-fx fx-palantir" aria-hidden="true">
+              <span class="pal-ring"></span>
+              <img src="assets/logos/palantir.svg" alt="" loading="lazy">
+            </div>
+            <div class="cert-logo" aria-hidden="true">
+              <span class="cert-wordmark">Palantir</span>
+            </div>
+            <p class="cert-name">Foundry / AIP Certification</p>
+            <p class="cert-code">FOUNDRY · AIP</p>
+            <p class="cert-status"><span class="cert-check">✓</span> <span data-scramble>VERIFIED · 2026</span></p>
+          </article>
+
+          <!-- ——— row 2 · the AI cluster ——— -->
+          <article class="cert-card reveal">
+            <div class="cert-fx fx-google" aria-hidden="true">
+              <span class="fx-g-wrap">
+                <img src="assets/logos/google-g.svg" alt="" loading="lazy">
+                <span class="gdot"></span><span class="gdot"></span><span class="gdot"></span><span class="gdot"></span>
+              </span>
+            </div>
+            <div class="cert-logo" aria-hidden="true">
+              <span class="cert-wordmark">Google</span>
+            </div>
+            <p class="cert-name">AI Professional Certificate</p>
+            <p class="cert-code">GOOGLE CAREER CERTIFICATES</p>
+            <p class="cert-status"><span class="cert-check">✓</span> <span data-scramble>VERIFIED · 2026</span></p>
+          </article>
+
+          <article class="cert-card reveal" data-delay="0.08">
+            <div class="cert-fx fx-ibm" aria-hidden="true">
+              <img src="assets/logos/ibm.svg" alt="" loading="lazy">
+            </div>
+            <div class="cert-logo" aria-hidden="true">
+              <span class="cert-wordmark">IBM</span>
+            </div>
+            <p class="cert-name">AI Foundations Certification</p>
+            <p class="cert-code">IBM CERTIFIED</p>
+            <p class="cert-status"><span class="cert-check">✓</span> <span data-scramble>VERIFIED · 2026</span></p>
+          </article>
+
+          <article class="cert-card reveal" data-delay="0.16">
+            <div class="cert-fx fx-microsoft" aria-hidden="true">
+              <!-- official Microsoft squares, inlined so each square animates -->
+              <svg viewBox="0 0 23 23"><path fill="#f35325" d="M1 1h10v10H1z"/><path fill="#81bc06" d="M12 1h10v10H12z"/><path fill="#05a6f0" d="M1 12h10v10H1z"/><path fill="#ffba08" d="M12 12h10v10H12z"/></svg>
+            </div>
+            <div class="cert-logo" aria-hidden="true">
+              <svg class="ms-squares" viewBox="0 0 21 21" width="18" height="18"><rect x="0" y="0" width="10" height="10"/><rect x="11" y="0" width="10" height="10" opacity="0.75"/><rect x="0" y="11" width="10" height="10" opacity="0.75"/><rect x="11" y="11" width="10" height="10" opacity="0.5"/></svg>
+              <span class="cert-wordmark">Microsoft</span>
+            </div>
+            <p class="cert-name">AI Business Professional</p>
+            <p class="cert-code">MICROSOFT CERTIFIED</p>
+            <p class="cert-status"><span class="cert-check">✓</span> <span data-scramble>VERIFIED · 2026</span></p>
+          </article>
+
+          <article class="cert-card reveal" data-delay="0.24">
+            <div class="cert-fx fx-nvidia" aria-hidden="true">
+              <!-- official NVIDIA wordmark, inlined in NVIDIA green -->
+              <svg viewBox="316.2 33.8 630.2 118.2" fill="#76B900"><path d="M578.2 34v118h33.3V34h-33.3zm-262-.2v118.1h33.6V60.2l26.2.1c8.6 0 14.6 2.1 18.7 6.5 5.3 5.6 7.4 14.7 7.4 31.2v53.9h32.6V86.7c0-46.6-29.7-52.9-58.7-52.9h-59.8zm315.7.2v118h54c28.8 0 38.2-4.8 48.3-15.5 7.2-7.5 11.8-24.1 11.8-42.2 0-16.6-3.9-31.4-10.8-40.6C723 37.2 705.2 34 678.6 34h-46.7zm33 25.6h14.3c20.8 0 34.2 9.3 34.2 33.5s-13.4 33.6-34.2 33.6h-14.3V59.6zM530.2 34l-27.8 93.5L475.8 34h-36l38 118h48l38.4-118h-34zm231.4 118h33.3V34h-33.3v118zM855 34l-46.5 117.9h32.8l7.4-20.9h55l7 20.8h35.7L899.5 34H855zm21.6 21.5l20.2 55.2h-41l20.8-55.2z"/></svg>
+            </div>
+            <div class="cert-logo" aria-hidden="true">
+              <span class="cert-wordmark">NVIDIA</span>
+            </div>
+            <p class="cert-name">Accelerated Data Science</p>
+            <p class="cert-code">NVIDIA DLI CERTIFICATION</p>
+            <p class="cert-status"><span class="cert-check">✓</span> <span data-scramble>VERIFIED · 2026</span></p>
+          </article>
+
+          <!-- ——— row 3 · business & delivery ——— -->
+          <article class="cert-card reveal">
+            <div class="cert-fx fx-wharton" aria-hidden="true">
+              <img src="assets/logos/penn.svg" alt="" loading="lazy">
+            </div>
+            <div class="cert-logo" aria-hidden="true">
+              <span class="cert-wordmark cert-wordmark-serif">Wharton</span>
+            </div>
+            <p class="cert-name">Business Foundations Program</p>
+            <p class="cert-code">THE WHARTON SCHOOL</p>
+            <p class="cert-status"><span class="cert-check">✓</span> <span data-scramble>VERIFIED · 2025</span></p>
+          </article>
+
+          <article class="cert-card reveal" data-delay="0.08">
+            <div class="cert-fx fx-kpmg" aria-hidden="true">
+              <img src="assets/logos/kpmg.svg" alt="" loading="lazy">
+            </div>
+            <div class="cert-logo" aria-hidden="true">
+              <span class="cert-wordmark">KPMG</span>
+            </div>
+            <p class="cert-name">Target Operating Model</p>
+            <p class="cert-code">KPMG CERTIFICATION</p>
+            <p class="cert-status"><span class="cert-check">✓</span> <span data-scramble>VERIFIED · 2025</span></p>
+          </article>
+
+          <article class="cert-card reveal" data-delay="0.16">
+            <div class="cert-fx fx-kpmg" aria-hidden="true">
+              <img src="assets/logos/kpmg.svg" alt="" loading="lazy">
+            </div>
+            <div class="cert-logo" aria-hidden="true">
+              <span class="cert-wordmark">KPMG</span>
+            </div>
+            <p class="cert-name">Cloud Fundamentals</p>
+            <p class="cert-code">KPMG CERTIFICATION</p>
+            <p class="cert-status"><span class="cert-check">✓</span> <span data-scramble>VERIFIED · 2025</span></p>
+          </article>
+
+          <article class="cert-card reveal" data-delay="0.24">
+            <div class="cert-fx fx-scrum" aria-hidden="true">
+              <!-- Scrum.org credential badges are hexagons — rebuilt in brand blue -->
+              <span class="fx-hex">PSM I</span>
+            </div>
+            <div class="cert-logo" aria-hidden="true">
+              <span class="cert-wordmark">Scrum.org</span>
+            </div>
+            <p class="cert-name">Professional Scrum Master I</p>
+            <p class="cert-code">PSM I · SCRUM.ORG</p>
+            <p class="cert-status"><span class="cert-check">✓</span> <span data-scramble>VERIFIED · 2025</span></p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         007 · EXPERIENCE
+         ================================================================== -->
+    <!-- Second INK BAND — paper → ink → paper scroll rhythm -->
+    <section class="experience section band-ink" id="experience">
+      <div class="container">
+        <div class="section-head">
+          <span class="ghost" aria-hidden="true">STORY</span>
+          <div class="section-rail reveal">
+            <span class="rail-label" data-scramble>// 007 · EXPERIENCE</span>
+            <span class="rail-meta" data-scramble>GRID 07.A — 2025 ONWARD</span>
+          </div>
+          <h2 class="section-title split-title">Where the reps<br>were earned.</h2>
+        </div>
+
+        <div class="timeline" id="timeline">
+          <!-- Each role = a "dossier" entry: logo plate (mono at rest,
+               color-blooms on hover, matching the credentials wall),
+               mono metadata chips, then the substance. -->
+          <article class="tl-item reveal">
+            <div class="tl-marker" aria-hidden="true"></div>
+            <div class="tl-head">
+              <span class="tl-logo-plate">
+                <img class="tl-logo" src="assets/logos/bat.png" alt="British American Tobacco logo" loading="lazy">
+              </span>
+              <div class="tl-id">
+                <p class="tl-date">2025 — PRESENT</p>
+                <h3 class="tl-role">Trade Marketing &amp; Distribution Analyst</h3>
+                <p class="tl-org">British American Tobacco — Saudi Arabia</p>
+              </div>
+            </div>
+            <div class="tl-chips" aria-label="Role details">
+              <span class="tl-chip is-live"><i aria-hidden="true"></i>ACTIVE POSTING</span>
+              <span class="tl-chip">JEDDAH OFFICE</span>
+              <span class="tl-chip">TRADE MARKETING &amp; DISTRIBUTION</span>
+            </div>
+            <!-- PLACEHOLDER bullets -->
+            <ul class="tl-points">
+              <li>Own trade performance reporting across regions and channels.</li>
+              <li>Build and maintain Power BI models powering weekly leadership reviews.</li>
+              <li>Build purpose-built apps that automate recurring reporting end-to-end.</li>
+            </ul>
+          </article>
+
+          <article class="tl-item reveal" data-delay="0.1">
+            <div class="tl-marker" aria-hidden="true"></div>
+            <div class="tl-head">
+              <span class="tl-logo-plate">
+                <img class="tl-logo" src="assets/logos/kpmg.svg" alt="KPMG logo" loading="lazy">
+              </span>
+              <div class="tl-id">
+                <p class="tl-date">2025</p>
+                <h3 class="tl-role">Data Analyst — Co-op</h3>
+                <p class="tl-org">KPMG</p>
+              </div>
+            </div>
+            <div class="tl-chips" aria-label="Role details">
+              <span class="tl-chip is-honor">★ PARTNER-COMMENDED</span>
+              <span class="tl-chip">CO-OP PROGRAM</span>
+              <span class="tl-chip">DATA &amp; ANALYTICS</span>
+            </div>
+            <ul class="tl-points">
+              <li>Delivered analysis and client-facing data deliverables under consulting timelines.</li>
+              <li>Singled out by the engagement Partner for quality of analysis and delivery.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         06 · CONTACT
+         ================================================================== -->
+    <section class="contact section" id="contact">
+      <div class="container contact-inner">
+        <span class="ghost ghost-center" aria-hidden="true">TALK</span>
+        <p class="eyebrow reveal" data-scramble>// 008 · CONTACT</p>
+        <!-- PLACEHOLDER COPY -->
+        <h2 class="contact-title split-title">Let's build something<br><span class="accent">intelligent.</span></h2>
+        <p class="reveal"><a class="btn btn-primary btn-lg magnetic" href="mailto:Abdulkareem.Ibrahim@pm.me">Abdulkareem.Ibrahim@pm.me</a></p>
+        <p class="contact-sub reveal" data-delay="0.1">JEDDAH · SAUDI ARABIA</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Abdulkareem Hussain</p>
+    </div>
+    <!-- System readout strip -->
+    <div class="container footer-sys">
+      <span data-scramble>SYS // OPERATIONAL</span>
+      <span class="hud-clock">--:--:-- UTC</span>
+      <span data-scramble>MODE // IVORY · PALETTE // MONO</span>
+    </div>
+  </footer>
+
+  <!-- ==================================================================
+       LIBRARIES (CDN)
+       ================================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+
+  <!-- Our code — same engine as index.html, plus the variant push -->
+  <script src="js/main.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/hud.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/dash02-coverage.js"></script>
+  <script src="js/dash03-scenario.js"></script>
+  <script src="js/dash04-bridge.js"></script>
+  <script src="js/dash05-brand.js"></script>
+  <script src="js/work-console.js"></script>
+  <script src="js/apps-v2.js"></script>
+  <script src="js/palantir-fx.js"></script>
+  <script src="js/ivory.js"></script>
+</body>
+</html>
