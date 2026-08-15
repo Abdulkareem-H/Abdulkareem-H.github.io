@@ -787,23 +787,26 @@ ul { list-style: none; }
   to   { opacity: 1; transform: none; }
 }
 
-/* — McKINSEY: the serif wordmark typesets itself — letter-spacing
-     contracts as it fades in, like a page being set to print,
-     in McKinsey deep blue — */
-.fx-mck {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.15rem;
-  color: #051C2C;
-  white-space: nowrap;
+/* — CFI (BIDA): a mini BI chart builds itself — bars rise in
+     analyst navy, the last one lands in growth teal — */
+.fx-cfi { align-items: flex-end; gap: 8px; padding-bottom: 26px; }
+.fx-cfi span {
+  width: 13px;
+  background: #1b2f5e;
   opacity: 0;
-  letter-spacing: 0.32em;
-  margin-top: 14px;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  border-radius: 1px;
 }
-.cert-card:hover .fx-mck { animation: fx-typeset 0.8s ease forwards; }
-@keyframes fx-typeset {
-  from { opacity: 0; letter-spacing: 0.32em; }
-  to   { opacity: 1; letter-spacing: 0.01em; }
-}
+.fx-cfi span:nth-child(1) { height: 22px; }
+.fx-cfi span:nth-child(2) { height: 38px; }
+.fx-cfi span:nth-child(3) { height: 30px; }
+.fx-cfi span:nth-child(4) { height: 52px; background: #21ce99; }
+.cert-card:hover .fx-cfi span { animation: fx-build 0.45s ease forwards; }
+.cert-card:hover .fx-cfi span:nth-child(2) { animation-delay: 0.09s; }
+.cert-card:hover .fx-cfi span:nth-child(3) { animation-delay: 0.18s; }
+.cert-card:hover .fx-cfi span:nth-child(4) { animation-delay: 0.27s; }
+@keyframes fx-build { to { opacity: 0.9; transform: scaleY(1); } }
 
 /* — SCRUM.ORG: their hexagonal credential badge flips in — */
 .fx-scrum { perspective: 400px; }
