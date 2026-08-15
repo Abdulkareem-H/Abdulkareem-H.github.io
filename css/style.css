@@ -787,26 +787,23 @@ ul { list-style: none; }
   to   { opacity: 1; transform: none; }
 }
 
-/* — CFI (BIDA): a mini BI chart builds itself — bars rise in
-     analyst navy, the last one lands in growth teal — */
-.fx-cfi { align-items: flex-end; gap: 8px; padding-bottom: 26px; }
-.fx-cfi span {
-  width: 13px;
-  background: #1b2f5e;
-  opacity: 0;
-  transform: scaleY(0);
-  transform-origin: bottom;
-  border-radius: 1px;
+/* — CFI (BIDA): the real navy mark strikes in on the diagonal
+     of its own slashes, then settles flat — */
+.fx-cfi img { width: 52px; height: 52px; }
+.cert-card:hover .fx-cfi img {
+  animation: fx-slash 0.55s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
 }
-.fx-cfi span:nth-child(1) { height: 22px; }
-.fx-cfi span:nth-child(2) { height: 38px; }
-.fx-cfi span:nth-child(3) { height: 30px; }
-.fx-cfi span:nth-child(4) { height: 52px; background: #21ce99; }
-.cert-card:hover .fx-cfi span { animation: fx-build 0.45s ease forwards; }
-.cert-card:hover .fx-cfi span:nth-child(2) { animation-delay: 0.09s; }
-.cert-card:hover .fx-cfi span:nth-child(3) { animation-delay: 0.18s; }
-.cert-card:hover .fx-cfi span:nth-child(4) { animation-delay: 0.27s; }
-@keyframes fx-build { to { opacity: 0.9; transform: scaleY(1); } }
+@keyframes fx-slash {
+  from { opacity: 0; transform: translate(-12px, 14px) rotate(-14deg) scale(0.8); }
+  to   { opacity: 1; transform: none; }
+}
+/* rest state: the mark sits mono beside the wordmark, like the
+   other issuer glyphs, and colors only in the hover bloom */
+.cfi-mini {
+  width: 20px;
+  height: 20px;
+  filter: grayscale(1) opacity(0.75);
+}
 
 /* — SCRUM.ORG: their hexagonal credential badge flips in — */
 .fx-scrum { perspective: 400px; }

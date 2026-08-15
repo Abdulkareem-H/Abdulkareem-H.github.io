@@ -163,7 +163,7 @@
       ['[07:06:52] cleaning … 217 duplicates dropped', 900],
       [`[07:07:48] building ${scope === 'National' ? 'region' : 'channel'} views …`, 900],
       ['[07:08:05] writing <span class="ok">.xlsx</span> … <span class="ok">SENT</span>', 700],
-      ['<span class="done">✓ COMPLETE — run 09:51 · manual: ~4 hrs</span>', 300],
+      ['<span class="done">✓ COMPLETE — run 14:37 · manual: ~4 hrs</span>', 300],
     ], () => {
       renderReport();
       reportStatus.textContent = 'REPORT READY — RE-RUN ANY TIME';
